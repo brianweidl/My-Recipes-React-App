@@ -8,15 +8,14 @@ const formatApiSteps = (el) => {
 	if (el.analyzedInstructions[0]) {
 		let formatSteps = el.analyzedInstructions[0].steps.reduce((a, b) => {
 			let newStep = b.step
-			return a + 'NEWSTEP' + newStep
+			return a + '|' + newStep
 		}, '')
-		formatSteps = formatSteps.split('NEWSTEP')
+		formatSteps = formatSteps.split('|')
 		formatSteps.shift()
 
 		return formatSteps
 	} else return 'No steps available'
 }
-
 const getApiRecipes = () => {
 	let formatRecipes = data.results.map((el) => {
 		return {
@@ -32,9 +31,9 @@ const getApiRecipes = () => {
 	})
 	return formatRecipes
 }
-
 const getDbRecipes = async () => {
 	let dbRecipes = await Recipe.findAll({ include: Diets })
+	console.log(dbRecipes)
 	return dbRecipes
 }
 const getAllRecipes = async () => {
@@ -71,7 +70,7 @@ router.get('/types', async (req, res) => {
 	}
 })
 
-//{"title":"foodie", "summary":"food to eat","healthScore": 86.5, "score": 100.0, "steps": " NEWSTEPprepare  food NEWSTEP eat food", "diets": ["vegetarian","gluten free"]  }
+//{"title":"foodie", "summary":"food to eat","healthScore": 86.5, "score": 100.0, "steps": " |prepare  food | eat food", "diets": ["vegetarian","gluten free"]  }
 router.post('/recipe', async (req, res) => {
 	const { title, summary, healthScore, score, image, steps, diets } = req.body
 	try {
@@ -99,11 +98,14 @@ router.get('/recipes/', async (req, res) => {
 	try {
 		const allRecipes = await getAllRecipes()
 		if (Object.keys(req.query).length !== 0) {
-			console.log(req.query)
 			const queryRecipe = allRecipes.find(
 				(recipe) => recipe.title === req.query.name
 			)
-			res.json(queryRecipe)
+			if (queryRecipe) {
+				res.json(queryRecipe)
+			} else {
+				res.json('Recipe not found')
+			}
 		} else {
 			res.json(allRecipes)
 		}
