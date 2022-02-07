@@ -18,6 +18,9 @@ const formatApiSteps = (el) => {
 }
 const getApiRecipes = () => {
 	let formatRecipes = data.results.map((el) => {
+		if (el.vegetarian && !el.diets.includes('vegetarian')) {
+			el.diets.push('vegetarian')
+		}
 		return {
 			title: el.title,
 			id: el.id,
@@ -33,13 +36,35 @@ const getApiRecipes = () => {
 }
 const getDbRecipes = async () => {
 	let dbRecipes = await Recipe.findAll({ include: Diets })
+	dbRecipes = JSON.stringify(dbRecipes)
+	dbRecipes = JSON.parse(dbRecipes)
+	dbRecipes = dbRecipes.map((recipe) => {
+		recipe.steps = recipe.steps.split('|')
+		recipe.steps.shift()
+		recipe.diets = recipe.diets.map((diet) => diet.name)
+		return {
+			...recipe,
+		}
+	})
 	console.log(dbRecipes)
+
 	return dbRecipes
 }
 const getAllRecipes = async () => {
 	const apiRecipes = await getApiRecipes()
 	const dbRecipes = await getDbRecipes()
-	const allRecipes = dbRecipes.concat(apiRecipes)
+
+	let allRecipes = dbRecipes.concat(apiRecipes)
+	allRecipes = allRecipes.sort((a, b) => {
+		if (a.title.toLowerCase() > b.title.toLowerCase()) {
+			return 1
+		}
+		if (b.title.toLowerCase() > a.title.toLowerCase()) {
+			return -1
+		}
+		return 0
+	})
+
 	return allRecipes
 }
 
@@ -49,28 +74,35 @@ const router = Router()
 // Ejemplo: router.use('/auth', authRouter);
 
 router.get('/types', async (req, res) => {
-	let diets = ['vegetarian']
-	data.results.forEach((el) => {
-		el.diets.forEach((diet) => {
-			if (diet && !diets.includes(diet)) {
-				diets.push(diet)
+	let dbDiets = await Diets.findAll()
+
+	if (!dbDiets.length) {
+		let diets = ['vegetarian']
+		data.results.forEach((el) => {
+			el.diets.forEach((diet) => {
+				if (diet && !diets.includes(diet)) {
+					diets.push(diet)
+				}
+			})
+		})
+		let formattedDiets = diets.map((diet) => {
+			return {
+				name: diet,
 			}
 		})
-	})
-	let formattedDiets = diets.map((diet) => {
-		return {
-			name: diet,
+		try {
+			let dietsCreated = await Diets.bulkCreate(formattedDiets)
+			res.json(dietsCreated)
+		} catch (error) {
+			res.send(error)
 		}
-	})
-	try {
-		let dietsCreated = await Diets.bulkCreate(formattedDiets)
-		res.json(dietsCreated)
-	} catch (error) {
-		res.send(error)
+	} else {
+		res.json(dbDiets)
 	}
 })
 
 //{"title":"foodie", "summary":"food to eat","healthScore": 86.5, "score": 100.0, "steps": " |prepare  food | eat food", "diets": ["vegetarian","gluten free"]  }
+//{"title":"foodietwo", "summary":"eat all the food","healthScore": 88.3, "score": 95.0, "steps": " |prepare  food | eat food | live food", "diets": ["vegetarian","gluten free"]  }
 router.post('/recipe', async (req, res) => {
 	const { title, summary, healthScore, score, image, steps, diets } = req.body
 	try {

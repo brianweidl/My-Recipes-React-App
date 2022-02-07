@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import Home from './Components/Home'
 import Filters from './Components/Filters'
 import RecipeCreation from './Components/RecipeCreation'
+import RecipeDetail from './Components/RecipeDetail'
 
 function App() {
 	return (
@@ -18,6 +19,7 @@ function App() {
 						path="/recipe-maker"
 						element={<RecipeCreation />}
 					></Route>
+					<Route path="recipe-detail/:id" element={<RecipeDetail />}></Route>
 				</Routes>
 			</Router>
 		</Provider>

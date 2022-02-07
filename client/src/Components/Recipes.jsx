@@ -1,20 +1,25 @@
-import axios from 'axios'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { getRecipes } from '../Actions/Actions'
+function Recipes({ recipes }) {
+	return (
+		<>
+			<div>Recipes</div>
 
-function Recipes() {
-	const dispatch = useDispatch()
-	useEffect(() => {
-		const getAllRecipes = async () => {
-			const allRecipes = await axios.get('http://localhost:3001/recipes')
-			dispatch(getRecipes(allRecipes.data))
-		}
-		getAllRecipes()
-	}, [])
-	return <div>Recipes</div>
+			{recipes.map((recipe) => (
+				<ul>
+					<li>{recipe.title}</li>
+					<Link
+						to={{
+							pathname: `/recipe-detail/${recipe.id}`,
+						}}
+					>
+						Detail
+					</Link>
+				</ul>
+			))}
+		</>
+	)
 }
 
 export default Recipes
