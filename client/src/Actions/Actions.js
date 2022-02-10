@@ -26,9 +26,10 @@ export function filterAlphabetical(alpha) {
 	}
 }
 
-export function filterByScore() {
+export function filterByScore(score) {
 	return {
 		type: 'FILTER_SCORE',
+		payload: score,
 	}
 }
 
@@ -36,5 +37,11 @@ export function filterByName(name) {
 	return {
 		type: 'FILTER_BY_NAME',
 		payload: name,
+	}
+}
+
+export function reset() {
+	return {
+		type: 'RESET',
 	}
 }

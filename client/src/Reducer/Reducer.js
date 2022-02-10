@@ -18,9 +18,6 @@ const rootReducer = (state = initialState, action) => {
 				filteredRecipes: [...action.payload],
 			}
 		case 'FILTER_BY_DIET':
-			if (action.payload === 'ALL') {
-				return { ...state, filteredRecipes: [...state.allRecipes] }
-			}
 			let filteredByDiet = state.filteredRecipes.filter((recipe) =>
 				recipe.diets.includes(action.payload.toLowerCase())
 			)
@@ -29,7 +26,6 @@ const rootReducer = (state = initialState, action) => {
 				filteredRecipes: filteredByDiet,
 			}
 		case 'FILTER_ALPHABETICALLY':
-			console.log('alpha')
 			if (action.payload === 'a-z' || action.payload === '') {
 				let filterAZ = state.filteredRecipes.sort((a, b) => {
 					if (a.title.toLowerCase() > b.title.toLowerCase()) {
@@ -62,12 +58,16 @@ const rootReducer = (state = initialState, action) => {
 				}
 			}
 		case 'FILTER_SCORE':
-			console.log('score')
-			let filteredByScore = state.filteredRecipes.sort((a, b) => {
-				return b.score - a.score
-			})
-
-			console.log(filteredByScore)
+			let filteredByScore = []
+			if (action.payload === 'high-score') {
+				filteredByScore = state.filteredRecipes.sort((a, b) => {
+					return b.healthScore - a.healthScore
+				})
+			} else {
+				filteredByScore = state.filteredRecipes.sort((a, b) => {
+					return a.healthScore - b.healthScore
+				})
+			}
 
 			return {
 				...state,
@@ -80,6 +80,11 @@ const rootReducer = (state = initialState, action) => {
 			return {
 				...state,
 				filteredRecipes: recipesFound,
+			}
+		case 'RESET':
+			return {
+				...state,
+				filteredRecipes: [...state.allRecipes],
 			}
 
 		default:

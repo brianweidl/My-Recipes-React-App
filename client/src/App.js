@@ -6,6 +6,7 @@ import Home from './Components/Home'
 import Filters from './Components/Filters'
 import RecipeCreation from './Components/RecipeCreation'
 import RecipeDetail from './Components/RecipeDetail'
+import './Styles/styles.css'
 
 function App() {
 	return (

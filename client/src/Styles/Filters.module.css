@@ -1,0 +1,49 @@
+.mainContainer {
+	background-color: lavender;
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 2em;
+}
+
+.content {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: 100px 300px 300px 300px;
+
+	grid-template-areas:
+		'navbar navbar navbar navbar'
+		'filter recipes recipes recipes'
+		'filter recipes recipes recipes'
+		'filter recipes recipes recipes';
+}
+
+.header {
+	margin: 2em;
+	display: flex;
+}
+.navbar {
+	grid-area: navbar;
+	width: 100%;
+	display: flex;
+}
+
+.filters {
+	grid-area: filter;
+	display: flex;
+	flex-direction: column;
+}
+
+.recipesGrid {
+	grid-area: recipes;
+
+	width: 100%;
+}
+
+.pagination {
+	width: 100%;
+	margin: 3em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

@@ -9,8 +9,11 @@ import {
 	filterByDiet,
 	filterAlphabetical,
 	filterByScore,
+	reset,
 } from '../Actions/Actions.js'
 import NavBar from './NavBar.jsx'
+
+import styles from '../Styles/Filters.module.css'
 
 function Filters() {
 	const dispatch = useDispatch()
@@ -20,7 +23,8 @@ function Filters() {
 	const [dietsFiltered, setDietsFiltered] = useState([])
 	const recipesShown = 9
 	const { diets, filteredRecipes } = useSelector((state) => state)
-	console.log(filteredRecipes)
+
+	console.log(styles)
 
 	useEffect(() => {
 		const getAllDiets = async () => {
@@ -30,6 +34,8 @@ function Filters() {
 			const allDiets = await axios.get('http://localhost:3001/types')
 			dispatch(getRecipes(allRecipes.data))
 			dispatch(getDiets(allDiets.data))
+			let radio = document.getElementById('az')
+			radio.checked = true
 
 			setLoading(false)
 		}
@@ -37,22 +43,28 @@ function Filters() {
 	}, [dispatch])
 
 	const handleSelectChange = (e) => {
-		dispatch(filterByDiet(e.target.value))
-		setDietsFiltered([...dietsFiltered, e.target.value])
-		setCurrentPage(1)
-		filterRadioButton()
+		if (e.target.value === '') {
+			return
+		} else {
+			dispatch(filterByDiet(e.target.value))
+			if (!dietsFiltered.includes(e.target.value)) {
+				setDietsFiltered([...dietsFiltered, e.target.value])
+			}
+			setCurrentPage(1)
+			filterRadioButton()
+		}
 	}
 
 	const filterRadioButton = () => {
-		if (selectedRadio === 'score') {
-			dispatch(filterByScore())
+		if (selectedRadio.includes('score')) {
+			dispatch(filterByScore(selectedRadio))
 		} else {
 			dispatch(filterAlphabetical(selectedRadio))
 		}
 		setCurrentPage(1)
 	}
-	const reset = () => {
-		dispatch(filterByDiet('ALL'))
+	const resetFilters = () => {
+		dispatch(reset())
 		setDietsFiltered([])
 		let select = document.getElementById('select')
 		select.value = 'ALL'
@@ -81,64 +93,82 @@ function Filters() {
 	)
 
 	return (
-		<>
-			<Header />
-			<NavBar
-				selectedRadio={selectedRadio}
-				filterRadioButton={filterRadioButton}
-				setDietsFiltered={setDietsFiltered}
-			></NavBar>
-			<div>Filters</div>
-			<select onChange={handleSelectChange} id="select">
-				<option>ALL</option>
-				{diets.map((diet) => (
-					<option key={diet.id}>{diet.name.toUpperCase()}</option>
-				))}
-			</select>
-			<button onClick={reset}>Reset Filters</button>
-			<div>
-				{dietsFiltered.map((diet) => {
-					return <span>{diet}</span>
-				})}
-			</div>
+		<div className={styles.mainContainer}>
+			<header className={styles.header}>
+				<Header />
+			</header>
+			<div className={styles.content}>
+				<div className={styles.navbar}>
+					<NavBar
+						selectedRadio={selectedRadio}
+						filterRadioButton={filterRadioButton}
+						setDietsFiltered={setDietsFiltered}
+					></NavBar>
+				</div>
+				<div className={styles.filters}>
+					<h1>Filters</h1>
+					<select onChange={handleSelectChange} id="select">
+						<option></option>
+						{diets.map((diet) => (
+							<option key={diet.id}>{diet.name.toUpperCase()}</option>
+						))}
+					</select>
+					<button onClick={resetFilters}>Reset Filters</button>
+					<ul>
+						{dietsFiltered.map((diet) => {
+							return <li>{diet}</li>
+						})}
+					</ul>
 
-			<div>
-				Sort
-				<input
-					type="radio"
-					onChange={() => setSelectedRadio('a-z')}
-					id="az"
-					name="sortBy"
-				></input>
-				<label htmlFor="az">A - Z</label>
-				<input
-					type="radio"
-					onChange={() => setSelectedRadio('z-a')}
-					id="za"
-					name="sortBy"
-				></input>
-				<label htmlFor="za">Z -A</label>
-				<input
-					type="radio"
-					onChange={() => setSelectedRadio('score')}
-					id="score"
-					name="sortBy"
-				></input>
-				<label htmlFor="score">Score</label>
-				<button onClick={() => filterRadioButton()}>BOTON</button>
-			</div>
+					<div>
+						Sort
+						<input
+							type="radio"
+							onChange={() => setSelectedRadio('a-z')}
+							id="az"
+							name="sortBy"
+						></input>
+						<label htmlFor="az">A - Z</label>
+						<input
+							type="radio"
+							onChange={() => setSelectedRadio('z-a')}
+							id="za"
+							name="sortBy"
+						></input>
+						<label htmlFor="za">Z -A</label>
+						<input
+							type="radio"
+							onChange={() => setSelectedRadio('high-score')}
+							id="score"
+							name="sortBy"
+						></input>
+						<label htmlFor="score">Highest Health Score</label>
+						<input
+							type="radio"
+							onChange={() => setSelectedRadio('low-score')}
+							id="score"
+							name="sortBy"
+						></input>
+						<label htmlFor="score">Lowest Health Score</label>
+						<button onClick={() => filterRadioButton()}>BOTON</button>
+					</div>
+				</div>
 
-			<div>
 				{loading ? (
 					<span>Loading...</span>
 				) : (
-					<Recipes recipes={currentRecipes} />
+					<div className={styles.recipesGrid}>
+						<Recipes recipes={currentRecipes} />
+					</div>
 				)}
 			</div>
-			<button onClick={() => previousPage()}> Previous </button>
-			<span>{currentPage}</span>
-			<button onClick={() => nextPage()}> Next </button>
-		</>
+			<div className={styles.pagination}>
+				<button onClick={() => previousPage()}> Previous </button>
+				<span>{currentPage}</span>
+
+				<button onClick={() => nextPage()}> Next </button>
+			</div>
+		</div>
 	)
 }
 
