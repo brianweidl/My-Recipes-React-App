@@ -4,6 +4,7 @@ import Header from './Header'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
+import styles from '../Styles/RecipeCreation.module.css'
 
 const DEFAULT_IMAGE =
 	'https://previews.123rf.com/images/rastudio/rastudio1606/rastudio160600763/57759850-plate-with-cutlery-vector-sketch-icon-isolated-on-background-hand-drawn-plate-with-cutlery-icon-plat.jpg'
@@ -23,6 +24,7 @@ function RecipeCreation() {
 	const [errors, setErrors] = useState({})
 	const handleChange = (e) => {
 		setInput({ ...input, [e.name]: e.value })
+		setErrors({})
 	}
 
 	const handleStepInputChange = (e, number) => {
@@ -79,14 +81,18 @@ function RecipeCreation() {
 		let inputs = []
 		for (let key in input) {
 			inputs.push(
-				<div>
-					<label>{`${key}`}</label>
+				<div className={styles.inputContainer}>
+					<label>{`${key.toUpperCase()}`}</label>
 					<input
+						autoComplete="off"
+						className={styles.userInput}
 						name={`${key}`}
 						value={input[key]}
 						onChange={(e) => handleChange(e.target)}
 					></input>
-					{errors && errors[key] && <p>{errors[key]}</p>}
+					{errors && errors[key] && (
+						<p className={styles.errorMessage}>{errors[key]}</p>
+					)}
 				</div>
 			)
 		}
@@ -171,15 +177,18 @@ function RecipeCreation() {
 	return (
 		<>
 			<Header />
-			<Link to="/recipes">Back to recipes</Link>
-			<div>Create</div>
-			<form>
+			<Link to="/recipes" className={styles.backLink}>
+				<span className={styles.span}>&lt;</span>Back to recipes
+			</Link>
+
+			<form className={styles.formContainer}>
 				{getInputsToMap()}
 				{steps.map((step) => {
 					return (
-						<div key={step.number + 1}>
-							<label>{`Step ${step.number + 1}`}</label>
+						<div className={styles.stepNumberInput} key={step.number + 1}>
+							<label>{`STEP ${step.number + 1}`}</label>
 							<input
+								className={styles.stepTextInput}
 								type="text"
 								onChange={(e) => {
 									handleStepInputChange(e.target, step.number)
@@ -189,13 +198,23 @@ function RecipeCreation() {
 						</div>
 					)
 				})}
-				{errors && errors.steps && <p>{errors.steps}</p>}
+				{errors && errors.steps && (
+					<p className={styles.errorMessage}>{errors.steps}</p>
+				)}
 
-				<button onClick={(e) => addStep(e)}>+</button>
-				<button onClick={(e) => resetSteps(e)}>Reset steps</button>
+				<button className={styles.stepButton} onClick={(e) => addStep(e)}>
+					Add Step
+				</button>
+				<button className={styles.stepButton} onClick={(e) => resetSteps(e)}>
+					Reset steps
+				</button>
 				<div>
-					Diets:
-					<select onChange={(e) => handleSelect(e.target)} id="select">
+					DIETS:
+					<select
+						className={styles.dietSelect}
+						onChange={(e) => handleSelect(e.target)}
+						id="select"
+					>
 						<option></option>
 						{diets.map((diet) => (
 							<option>{diet.name.toUpperCase()}</option>
@@ -207,9 +226,16 @@ function RecipeCreation() {
 							<button onClick={(e) => removeDiet(e, diet)}>X</button>
 						</div>
 					))}
-					{errors && errors.diets && <p>{errors.diets}</p>}
+					{errors && errors.diets && (
+						<p className={styles.errorMessage}>{errors.diets}</p>
+					)}
 				</div>
-				<button onClick={(e) => handleSubmit(e)}>Submit Recipe</button>
+				<button
+					className={styles.submitButton}
+					onClick={(e) => handleSubmit(e)}
+				>
+					SUBMIT RECIPE !
+				</button>
 			</form>
 		</>
 	)

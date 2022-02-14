@@ -1,6 +1,29 @@
+.header {
+	margin: 2em;
+	display: flex;
+	border-bottom: 0.3em solid orange;
+}
 .headerTitle {
 	width: 50%;
+	margin-bottom: 1em;
+	display: flex;
+}
+.headerImage {
+	width: 6%;
+}
+.headerName {
+	background-color: rgb(226, 177, 85);
+	padding: 1.5em;
+	border-radius: 0.5em;
+	color: white;
 }
 .navLink {
 	width: 50%;
+}
+.anchor {
+	text-decoration: none;
+}
+
+.span {
+	margin: 0.5em;
 }

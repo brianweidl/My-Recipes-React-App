@@ -1,0 +1,30 @@
+.homeContainer {
+	width: 99%;
+	height: 97.5vh;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border: 0.7em solid #f5c263;
+}
+
+iframe {
+	max-width: 890px;
+	max-height: 500px;
+}
+
+.video {
+	z-index: 0;
+}
+.overlay {
+	z-index: 1;
+	position: relative;
+	color: white;
+	width: 890px;
+	height: 500px;
+	margin-top: -505px;
+	text-align: center;
+	background-color: black;
+	opacity: 0.5;
+}

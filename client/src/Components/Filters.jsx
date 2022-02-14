@@ -24,7 +24,7 @@ function Filters() {
 	const recipesShown = 9
 	const { diets, filteredRecipes } = useSelector((state) => state)
 
-	console.log(styles)
+	console.log(filteredRecipes)
 
 	useEffect(() => {
 		const getAllDiets = async () => {
@@ -94,9 +94,8 @@ function Filters() {
 
 	return (
 		<div className={styles.mainContainer}>
-			<header className={styles.header}>
-				<Header />
-			</header>
+			<Header />
+
 			<div className={styles.content}>
 				<div className={styles.navbar}>
 					<NavBar
@@ -106,51 +105,66 @@ function Filters() {
 					></NavBar>
 				</div>
 				<div className={styles.filters}>
-					<h1>Filters</h1>
-					<select onChange={handleSelectChange} id="select">
-						<option></option>
-						{diets.map((diet) => (
-							<option key={diet.id}>{diet.name.toUpperCase()}</option>
-						))}
-					</select>
-					<button onClick={resetFilters}>Reset Filters</button>
-					<ul>
-						{dietsFiltered.map((diet) => {
-							return <li>{diet}</li>
-						})}
-					</ul>
+					<div className={styles.filterHeader}>
+						<h1>Filters</h1>
+						<button onClick={resetFilters}>Reset Filters</button>
+					</div>
+					<div className={styles.dietFilter}>
+						<h3>By Diet</h3>
+						<select onChange={handleSelectChange} id="select">
+							<option></option>
+							{diets.map((diet, index) => (
+								<option key={index}>{diet.name.toUpperCase()}</option>
+							))}
+						</select>
 
-					<div>
-						Sort
-						<input
-							type="radio"
-							onChange={() => setSelectedRadio('a-z')}
-							id="az"
-							name="sortBy"
-						></input>
-						<label htmlFor="az">A - Z</label>
-						<input
-							type="radio"
-							onChange={() => setSelectedRadio('z-a')}
-							id="za"
-							name="sortBy"
-						></input>
-						<label htmlFor="za">Z -A</label>
-						<input
-							type="radio"
-							onChange={() => setSelectedRadio('high-score')}
-							id="score"
-							name="sortBy"
-						></input>
-						<label htmlFor="score">Highest Health Score</label>
-						<input
-							type="radio"
-							onChange={() => setSelectedRadio('low-score')}
-							id="score"
-							name="sortBy"
-						></input>
-						<label htmlFor="score">Lowest Health Score</label>
-						<button onClick={() => filterRadioButton()}>BOTON</button>
+						<ul>
+							{dietsFiltered.map((diet, index) => {
+								return <li key={index}>{diet}</li>
+							})}
+						</ul>
+					</div>
+
+					<div className={styles.sortFilter}>
+						<h2>Sort</h2>
+						<div>
+							<label htmlFor="az">A - Z</label>
+							<input
+								type="radio"
+								onChange={() => setSelectedRadio('a-z')}
+								id="az"
+								name="sortBy"
+							></input>
+						</div>
+						<div>
+							<label htmlFor="za">Z -A</label>
+							<input
+								type="radio"
+								onChange={() => setSelectedRadio('z-a')}
+								id="za"
+								name="sortBy"
+							></input>
+						</div>
+						<div>
+							<label htmlFor="score">Highest Health Score</label>
+							<input
+								type="radio"
+								onChange={() => setSelectedRadio('high-score')}
+								id="score"
+								name="sortBy"
+							></input>
+						</div>
+						<div>
+							<label htmlFor="score">Lowest Health Score</label>
+							<input
+								type="radio"
+								onChange={() => setSelectedRadio('low-score')}
+								id="score"
+								name="sortBy"
+							></input>
+						</div>
+
+						<button onClick={() => filterRadioButton()}>SORT</button>
 					</div>
 				</div>
 
@@ -161,12 +175,12 @@ function Filters() {
 						<Recipes recipes={currentRecipes} />
 					</div>
 				)}
-			</div>
-			<div className={styles.pagination}>
-				<button onClick={() => previousPage()}> Previous </button>
-				<span>{currentPage}</span>
+				<div className={styles.pagination}>
+					<button onClick={() => previousPage()}> Previous </button>
+					<span>{currentPage}</span>
 
-				<button onClick={() => nextPage()}> Next </button>
+					<button onClick={() => nextPage()}> Next </button>
+				</div>
 			</div>
 		</div>
 	)

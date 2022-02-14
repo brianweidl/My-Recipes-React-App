@@ -1,5 +1,5 @@
 .mainContainer {
-	background-color: lavender;
+	background-color: white;
 	height: auto;
 	display: flex;
 	flex-direction: column;
@@ -8,42 +8,84 @@
 
 .content {
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	grid-template-rows: 100px 300px 300px 300px;
+	grid-template-columns: 20% 1fr 1fr 1fr;
+	grid-template-rows: 5% 30% 30% 30% 5%;
 
 	grid-template-areas:
 		'navbar navbar navbar navbar'
 		'filter recipes recipes recipes'
 		'filter recipes recipes recipes'
-		'filter recipes recipes recipes';
+		'filter recipes recipes recipes'
+		'pages pages pages pages';
 }
 
-.header {
-	margin: 2em;
-	display: flex;
-}
 .navbar {
 	grid-area: navbar;
-	width: 100%;
+	width: 100vw;
 	display: flex;
 }
 
 .filters {
+	/* border: 2em solid blue; */
 	grid-area: filter;
+	padding: 10%;
 	display: flex;
 	flex-direction: column;
 }
 
 .recipesGrid {
 	grid-area: recipes;
-
-	width: 100%;
+	margin-top: 3em;
+	margin-left: 6em;
+	width: 90%;
 }
 
 .pagination {
+	grid-area: pages;
+	padding-left: 6%;
 	width: 100%;
 	margin: 3em;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.filterHeader {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	margin-bottom: 4em;
+}
+
+.dietFilter select {
+	max-width: 100%;
+}
+
+.sortFilter {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5em;
+}
+
+.sortFilter div {
+	display: flex;
+	justify-content: space-between;
+}
+
+@media (max-width: 600px) {
+	.content {
+		grid-template-columns: 1fr;
+		grid-template-rows: 5% 15% 75% 5%;
+		grid-template-areas:
+			'navbar'
+			'filter'
+			'recipes'
+			'pages';
+		max-width: 100%;
+	}
+
+	.pagination {
+		padding: 0;
+		margin: 0;
+	}
 }

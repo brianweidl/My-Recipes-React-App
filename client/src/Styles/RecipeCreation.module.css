@@ -1,0 +1,73 @@
+.formContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: 2em;
+}
+
+.backLink {
+	text-decoration: none;
+	background-color: #fcad03;
+	padding: 1em;
+	border-radius: 1em;
+}
+.span {
+	margin: 0.5em;
+}
+
+.inputContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.3em;
+}
+
+.userInput:focus {
+	border: 0.2em solid #fcad03;
+	outline: none !important;
+	box-shadow: 0 0 10px #719ece;
+}
+
+.stepNumberInput {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.3em;
+}
+.stepTextInput:focus {
+	border: 0.2em solid #fcad03;
+	outline: none !important;
+	box-shadow: 0 0 10px #719ece;
+}
+.stepButton {
+	border-radius: 0.5em;
+	border: none;
+	background-color: #fcad03;
+	color: white;
+	margin: 0.5em;
+	padding: 0.7em;
+	box-shadow: none;
+}
+
+.stepButton:hover {
+	background-color: #fc7303;
+}
+
+.submitButton {
+	border-radius: 0.5em;
+	border: none;
+	background-color: #fcad03;
+	color: white;
+	margin: 0.5em;
+	padding: 0.9em;
+	box-shadow: none;
+}
+.submitButton:hover {
+	font-weight: 850;
+	background-color: #fc7303;
+}
+
+.errorMessage {
+	color: rgb(255, 60, 0);
+}

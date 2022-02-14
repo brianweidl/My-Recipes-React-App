@@ -1,10 +1,38 @@
 .recipeContainer {
+	margin-left: 0.5em;
+	height: 100%;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	gap: 1em;
+	grid-template-rows: repeat(3, 1fr);
+	gap: 0.5em;
+	margin-right: 3em;
 }
 
 .recipeImg {
-	width: 100px;
+	padding: 0;
+	margin: 0;
 	height: auto;
+	width: 60%;
+}
+
+.itemRecipe {
+	border: 1em solid #fcad03;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+@media (max-width: 600px) {
+	.recipeContainer {
+		grid-template-rows: repeat(9, 1fr);
+		grid-template-columns: 1fr;
+		align-items: center;
+		margin: 0;
+		max-width: 100%;
+	}
+	.itemRecipe {
+		padding: 2em;
+	}
 }

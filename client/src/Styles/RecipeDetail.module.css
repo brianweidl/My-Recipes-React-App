@@ -1,0 +1,66 @@
+.detailContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.summaryContainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.summaryContent {
+	width: 80%;
+	line-height: 1.5em;
+}
+
+.dietList {
+	display: flex;
+	align-items: center;
+}
+.dietList ul {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.dietList ul li {
+	border: 0.1em solid black;
+	border-radius: 0.5em;
+	margin: 2em;
+	padding: 0.5em;
+	list-style-type: none;
+}
+
+.scoreContainer {
+	display: flex;
+	flex-direction: row;
+	gap: 1em;
+	margin: 2em;
+}
+
+.healthScore {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.normalScore {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.stepContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	margin: 2em;
+}
+.stepList {
+	list-style-type: none;
+	margin: 1em;
+}

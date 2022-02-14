@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import Header from './Header'
+import styles from '../Styles/RecipeDetail.module.css'
 
 function RecipeDetail() {
 	const { id } = useParams()
@@ -34,33 +35,52 @@ function RecipeDetail() {
 	return (
 		<div>
 			<Header />
-			<Link to="/recipes">Back to recipes</Link>
+
 			{loading ? (
 				<span>Loading...</span>
 			) : (
-				<div>
+				<div className={styles.detailContainer}>
 					<h1>{recipe.title}</h1>
 					<img src={recipe.image} alt="recipe"></img>
-					<p>{getSummary()}</p>
-					<ul>
-						{recipe.diets &&
-							recipe.diets.map((diet) => {
-								return <li key={diet.id}>{diet}</li>
-							})}
-					</ul>
-					<div>Health Score : {recipe.healthScore}</div>
-					<div>Score : {recipe.score}</div>
-					<ul>
-						{recipe.steps &&
-							recipe.steps !== 'No steps available' &&
-							recipe.steps.map((step, index) => {
-								return (
-									<li key={index}>
-										Step {index + 1}:{step}
-									</li>
-								)
-							})}
-					</ul>
+					<div className={styles.summaryContainer}>
+						<h3>Summary</h3>
+						<p className={styles.summaryContent}>{getSummary()}</p>
+					</div>
+					<div className={styles.dietList}>
+						<h3>Diets:</h3>
+						<ul>
+							{recipe.diets &&
+								recipe.diets.map((diet) => {
+									return <li key={diet.id}>{diet}</li>
+								})}
+						</ul>
+					</div>
+					<div className={styles.scoreContainer}>
+						<div className={styles.healthScore}>
+							Health Score <span>{recipe.healthScore}</span>
+						</div>
+						<div className={styles.normalScore}>
+							Score <span>{recipe.score}</span>
+						</div>
+					</div>
+
+					{recipe.steps && recipe.steps !== 'No steps available' && (
+						<div className={styles.stepContainer}>
+							<h2>Step by Step</h2>
+							<ul>
+								{recipe.steps.map((step, index) => {
+									return (
+										<li className={styles.stepList} key={index}>
+											<span>Step {index + 1}: </span>
+											<span>{step}</span>
+										</li>
+									)
+								})}
+							</ul>
+						</div>
+					)}
+
+					<Link to="/recipes">Back to recipes</Link>
 				</div>
 			)}
 		</div>

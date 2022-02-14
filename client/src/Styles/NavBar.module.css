@@ -1,11 +1,50 @@
 .navBarForm {
-	width: 40%;
+	width: 50%;
+	display: flex;
+	align-items: center;
 }
 
 .navBarLink {
-	width: 40%;
+	width: 50%;
+	display: flex;
+	align-items: center;
+}
+.link {
+	background-color: #fcad03;
+	text-decoration: none;
+	color: white;
+	padding: 0.6em;
+	border-radius: 0.5em;
 }
 
 .navBarInput {
 	width: 80%;
+	border: 2px solid #e1e5ee;
+	border-radius: 0.5em;
+	padding: 0.5em;
+	margin-left: 1em;
+}
+
+.navBarButton {
+	border-radius: 0.5em;
+	border: none;
+	background-color: #fcad03;
+	color: white;
+	margin: 0.5em;
+	padding: 0.7em;
+	box-shadow: none;
+}
+
+.navBarButton:hover {
+	box-shadow: 0 0 10px #719ece;
+}
+
+.navBarInput:hover {
+	border-color: #fcad03;
+}
+
+.navBarInput:focus {
+	border-color: #fcad03;
+	outline: none !important;
+	box-shadow: 0 0 10px #719ece;
 }

@@ -24,22 +24,28 @@ function NavBar({ selectedRadio, filterRadioButton, setDietsFiltered }) {
 			>
 				<input
 					className={styles.navBarInput}
+					autocomplete="off"
 					placeholder="Search..."
+					id="search"
 					onChange={(e) => setSearchValue(e.target.value)}
 				></input>
+
 				<button
+					className={styles.navBarButton}
 					type="submit"
 					onClick={(e) => {
 						dispatch(filterByName(searchValue))
 						filterRadioButton()
 					}}
 				>
-					X
+					Search
 				</button>
 			</form>
-			<Link to="/recipe-maker" className={styles.navBarLink}>
-				Create a recipe
-			</Link>
+			<div className={styles.navBarLink}>
+				<Link to="/recipe-maker" className={styles.link}>
+					Create your own recipe!
+				</Link>
+			</div>
 		</>
 	)
 }
