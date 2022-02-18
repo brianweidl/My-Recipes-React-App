@@ -3,36 +3,113 @@
 	height: 100%;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	grid-template-rows: repeat(3, 1fr);
-	gap: 0.5em;
+	grid-template-rows: repeat(auto-fill, 40em);
+	gap: 0.8em;
 	margin-right: 3em;
+}
+.resultsSpan {
+	margin-left: 1em;
+	margin-bottom: 1em;
 }
 
 .recipeImg {
 	padding: 0;
 	margin: 0;
-	height: auto;
-	width: 60%;
+	height: 50%;
+	width: 90%;
 }
 
 .itemRecipe {
-	border: 1em solid #fcad03;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
 	text-align: center;
+	border-radius: 4px;
+	box-shadow: -1px -2px 12px -1px rgba(110, 106, 106, 0.71);
+}
+.cardTitle {
+	width: 100%;
+	height: 10%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0;
+	margin-top: 5%;
+	background-color: #f8d07a;
+	transition: 0.1s all ease-in;
 }
 
-@media (max-width: 600px) {
+.cardTitle h3 {
+	padding: 0em 1em;
+}
+.itemRecipe:hover {
+	box-shadow: -1px -2px 24px -1px rgba(110, 106, 106, 0.71);
+}
+.itemRecipe:hover .cardTitle {
+	background-color: #fcad03;
+}
+
+.dietsList {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	padding: 1em 1.5em;
+	justify-content: space-around;
+	height: 10%;
+	gap: 0.5em;
+}
+.dietElement {
+	font-size: 0.9em;
+	list-style: none;
+	border: 0.1em solid gray;
+	border-radius: 0.5em;
+	padding: 0.5em;
+	height: fit-content;
+	text-transform: capitalize;
+	font-weight: 550;
+}
+
+.learnMore {
+	color: black;
+	text-decoration: none;
+	background-color: #fcad03;
+	border-radius: 0.3em;
+	padding: 1em;
+	margin-bottom: 1em;
+}
+.learnMore:hover {
+	color: white;
+}
+
+@media (max-width: 1450px) {
+	.recipeContainer {
+		grid-template-rows: repeat(5, 1fr);
+		grid-template-columns: 1fr 1fr;
+		align-items: center;
+		margin: 0;
+		max-width: 90%;
+	}
+	.itemRecipe {
+		padding: 0.5em;
+	}
+	.learnMore {
+		margin-top: 2em;
+	}
+}
+
+@media (max-width: 650px) {
 	.recipeContainer {
 		grid-template-rows: repeat(9, 1fr);
 		grid-template-columns: 1fr;
 		align-items: center;
 		margin: 0;
-		max-width: 100%;
+		max-width: 90%;
 	}
 	.itemRecipe {
 		padding: 2em;
+	}
+	.learnMore {
+		margin-top: 2em;
 	}
 }

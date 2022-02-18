@@ -3,9 +3,17 @@
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+	padding: 1em;
+}
+.loading {
+	margin: 2em;
+}
+.detailContainer img {
+	max-width: 30%;
 }
 
 .summaryContainer {
+	margin-top: 3em;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -14,7 +22,71 @@
 
 .summaryContent {
 	width: 80%;
-	line-height: 1.5em;
+	line-height: 2em;
+	text-align: center;
+}
+
+.scoreContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+	gap: 3em;
+	margin: 2em;
+	width: 25%;
+}
+
+.healthScore {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: #fcbd37;
+	padding: 0.5em 1em;
+	border-radius: 8px;
+	width: 70%;
+}
+.healthScore span {
+	font-weight: bold;
+	font-size: 2em;
+}
+
+.normalScore {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: #fcbd37;
+	padding: 0.5em 1em;
+	border-radius: 8px;
+	width: 70%;
+}
+.normalScore span {
+	font-weight: bold;
+	font-size: 2em;
+}
+
+.stepContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	max-width: 80%;
+	margin: 2em;
+}
+.stepList {
+	list-style-type: none;
+	margin: 1em;
+}
+
+.backToLink {
+	background-color: #fcad03;
+	text-decoration: none;
+	color: white;
+	padding: 0.6em;
+	border-radius: 0.5em;
+}
+
+.backToLink:hover {
+	background-color: #fcbd37;
 }
 
 .dietList {
@@ -27,40 +99,17 @@
 }
 
 .dietList ul li {
-	border: 0.1em solid black;
 	border-radius: 0.5em;
 	margin: 2em;
-	padding: 0.5em;
+	padding: 1em;
 	list-style-type: none;
+	text-transform: capitalize;
+	background-color: #ffc547;
+	color: white;
 }
 
-.scoreContainer {
-	display: flex;
-	flex-direction: row;
-	gap: 1em;
-	margin: 2em;
-}
-
-.healthScore {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
-.normalScore {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
-.stepContainer {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	margin: 2em;
-}
-.stepList {
-	list-style-type: none;
-	margin: 1em;
+@media (max-width: 650px) {
+	.scoreContainer {
+		width: 80%;
+	}
 }

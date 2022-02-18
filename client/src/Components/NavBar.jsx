@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { filterAlphabetical, filterByName } from '../Actions/Actions'
+import { filterByName } from '../Actions/Actions'
 import styles from '../Styles/NavBar.module.css'
 
 function NavBar({ selectedRadio, filterRadioButton, setDietsFiltered }) {
@@ -9,14 +9,15 @@ function NavBar({ selectedRadio, filterRadioButton, setDietsFiltered }) {
 	const dispatch = useDispatch()
 
 	return (
-		<>
+		<div className={styles.navBar}>
 			<form
 				id="form"
 				className={styles.navBarForm}
 				onSubmit={(e) => {
 					e.preventDefault()
 					dispatch(filterByName(searchValue))
-					dispatch(filterAlphabetical('a-z'))
+					/* dispatch(filterAlphabetical('a-z')) */
+					filterRadioButton(selectedRadio)
 					setDietsFiltered([])
 					let form = document.getElementById('form')
 					form.reset()
@@ -24,7 +25,7 @@ function NavBar({ selectedRadio, filterRadioButton, setDietsFiltered }) {
 			>
 				<input
 					className={styles.navBarInput}
-					autocomplete="off"
+					autoComplete="off"
 					placeholder="Search..."
 					id="search"
 					onChange={(e) => setSearchValue(e.target.value)}
@@ -46,7 +47,7 @@ function NavBar({ selectedRadio, filterRadioButton, setDietsFiltered }) {
 					Create your own recipe!
 				</Link>
 			</div>
-		</>
+		</div>
 	)
 }
 

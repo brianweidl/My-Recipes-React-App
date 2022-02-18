@@ -6,34 +6,69 @@ import styles from '../Styles/Recipes.module.css'
 
 function Recipes({ recipes }) {
 	const totalRecipes = useSelector((state) => state.filteredRecipes)
+
+	const getDietsForCard = (diets) => {
+		let dietsForCard = []
+		for (let i = 0; i < 3; i++) {
+			dietsForCard.push(diets[i])
+		}
+		dietsForCard.push(`and ${diets.length - 3} more`)
+		return (
+			<ul className={styles.dietsList}>
+				{dietsForCard.map((diet, index) => {
+					return (
+						<li className={styles.dietElement} key={index}>
+							{diet}
+						</li>
+					)
+				})}
+			</ul>
+		)
+	}
 	return (
 		<>
-			{totalRecipes.length === 1 ? (
-				<div>Results 1 recipes found</div>
-			) : (
-				<div>Results {totalRecipes.length} Recipes found</div>
-			)}
+			<div className={styles.resultsSpan}>
+				Results {totalRecipes.length}{' '}
+				{totalRecipes.length <= 1 ? (
+					<span>Recipe found</span>
+				) : (
+					<span>Recipes found</span>
+				)}
+			</div>
+
 			<div className={styles.recipeContainer}>
 				{recipes.length ? (
 					recipes.map((recipe, index) => (
 						<div key={recipe.id} className={styles.itemRecipe}>
-							<h3>{recipe.title}</h3>
+							<div className={styles.cardTitle}>
+								<h3>{recipe.title}</h3>
+							</div>
 							<img
 								src={recipe.image}
 								alt="Recipe"
 								className={styles.recipeImg}
 							/>
-							<ul className={styles.dietsList}>
-								{recipe.diets.map((diet, index) => {
-									return <li key={index}>{diet} </li>
-								})}
-							</ul>
+							{recipe.diets.length < 4 ? (
+								<ul className={styles.dietsList}>
+									{recipe.diets.map((diet, index) => {
+										return (
+											<li key={index} className={styles.dietElement}>
+												{diet}{' '}
+											</li>
+										)
+									})}
+								</ul>
+							) : (
+								getDietsForCard(recipe.diets)
+							)}
+
 							<Link
+								className={styles.learnMore}
 								to={{
 									pathname: `/recipe-detail/${recipe.id}`,
 								}}
 							>
-								Detail
+								Learn More
 							</Link>
 						</div>
 					))

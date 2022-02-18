@@ -4,13 +4,26 @@
 	align-items: center;
 	flex-direction: column;
 	gap: 2em;
+	margin-left: 5%;
+	margin-top: 2em;
 }
 
 .backLink {
 	text-decoration: none;
-	background-color: #fcad03;
+
 	padding: 1em;
-	border-radius: 1em;
+	margin-left: 1em;
+	margin-bottom: 2em;
+	background-color: #fcad03;
+	text-decoration: none;
+	color: white;
+	padding: 0.6em;
+	border-radius: 0.5em;
+	transition: all 0.1s ease-in;
+}
+.backLink:hover {
+	background-color: #f5cc74;
+	border-radius: 0.3em;
 }
 .span {
 	margin: 0.5em;
@@ -21,12 +34,35 @@
 	flex-direction: column;
 	align-items: center;
 	gap: 0.3em;
+	border-radius: 0.5em;
+}
+.inputContainer input {
+	border: none;
+	border-radius: 0.3em;
+	background-color: #f8e6c0;
+}
+
+.inputContainer textarea {
+	border: none;
+	padding-bottom: 8em;
+
+	width: 225%;
+
+	background-color: #f8e6c0;
+	border-radius: 0.5em;
+}
+input::placeholder {
+	color: gray;
+}
+input[type='number'] {
+	text-align: center;
+	width: 45%;
+	padding: 1em;
 }
 
 .userInput:focus {
 	border: 0.2em solid #fcad03;
 	outline: none !important;
-	box-shadow: 0 0 10px #719ece;
 }
 
 .stepNumberInput {
@@ -35,10 +71,14 @@
 	align-items: center;
 	gap: 0.3em;
 }
+.stepTextInput {
+	border: none;
+	border-radius: 0.3em;
+	background-color: #f8e6c0;
+}
 .stepTextInput:focus {
 	border: 0.2em solid #fcad03;
 	outline: none !important;
-	box-shadow: 0 0 10px #719ece;
 }
 .stepButton {
 	border-radius: 0.5em;
@@ -54,6 +94,35 @@
 	background-color: #fc7303;
 }
 
+.dietsContainer {
+	display: flex;
+
+	flex-direction: column;
+	align-items: center;
+	gap: 0.3em;
+}
+
+.dietChosen {
+	border-radius: 0.5em;
+	margin: 0.5em;
+	padding: 0.5em;
+	background-color: #fcbd37;
+	color: white;
+	box-shadow: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0.5em;
+}
+.dietDeleteButton {
+	border: none;
+	color: white;
+	outline: none;
+	background-color: #fcbd37;
+}
+.dietDeleteButton:hover {
+	color: red;
+}
 .submitButton {
 	border-radius: 0.5em;
 	border: none;

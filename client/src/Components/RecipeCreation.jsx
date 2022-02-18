@@ -5,9 +5,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
 import styles from '../Styles/RecipeCreation.module.css'
-
-const DEFAULT_IMAGE =
-	'https://previews.123rf.com/images/rastudio/rastudio1606/rastudio160600763/57759850-plate-with-cutlery-vector-sketch-icon-isolated-on-background-hand-drawn-plate-with-cutlery-icon-plat.jpg'
+import defaultImage from '../Images/defaultImage.png'
 
 function RecipeCreation() {
 	const diets = useSelector((state) => state.diets)
@@ -40,7 +38,7 @@ function RecipeCreation() {
 
 	const handleSelect = (e) => {
 		if (e.value === '') return
-		if (!selectedDiets.includes(e.value)) {
+		if (!selectedDiets.includes(e.value.toLowerCase())) {
 			setSelectedDiets([...selectedDiets, e.value.toLowerCase()])
 		} else {
 			alert('Diet already selected')
@@ -77,34 +75,12 @@ function RecipeCreation() {
 		return formattedSteps
 	}
 
-	const getInputsToMap = () => {
-		let inputs = []
-		for (let key in input) {
-			inputs.push(
-				<div className={styles.inputContainer}>
-					<label>{`${key.toUpperCase()}`}</label>
-					<input
-						autoComplete="off"
-						className={styles.userInput}
-						name={`${key}`}
-						value={input[key]}
-						onChange={(e) => handleChange(e.target)}
-					></input>
-					{errors && errors[key] && (
-						<p className={styles.errorMessage}>{errors[key]}</p>
-					)}
-				</div>
-			)
-		}
-		return inputs
-	}
-
 	const validations = {
 		title: {
 			isValid: (title) => {
-				return title.length > 5 && title.length < 80
+				return title.length > 5 && title.length < 50
 			},
-			errorMessage: 'Title must contain between 5 and 80 characters',
+			errorMessage: 'Title must contain between 5 and 50 characters',
 		},
 		summary: {
 			isValid: (summary) => {
@@ -116,16 +92,16 @@ function RecipeCreation() {
 			isValid: (healthScore) => {
 				healthScore = parseInt(healthScore)
 
-				return healthScore > 0 && healthScore <= 100
+				return healthScore > 1 && healthScore <= 100
 			},
-			errorMessage: 'Health Score must be between 0 and 100',
+			errorMessage: 'Health Score must be between 1 and 100',
 		},
 		score: {
 			isValid: (score) => {
 				score = parseInt(score)
-				return score > 0 && score <= 100
+				return score > 1 && score <= 100
 			},
-			errorMessage: 'Score must be between 0 and 100',
+			errorMessage: 'Score must be between 1 and 100',
 		},
 	}
 
@@ -169,9 +145,10 @@ function RecipeCreation() {
 				steps: formatSteps(),
 			}
 			if (!formatSend.image) {
-				formatSend.image = DEFAULT_IMAGE
+				formatSend.image = defaultImage
 			}
 			await axios.post('http://localhost:3001/recipe', formatSend)
+			alert('Recipe created!')
 		}
 	}
 	return (
@@ -182,7 +159,82 @@ function RecipeCreation() {
 			</Link>
 
 			<form className={styles.formContainer}>
-				{getInputsToMap()}
+				{/* {getInputsToMap()} */}
+				<div className={styles.inputContainer}>
+					<label>TITLE</label>
+					<input
+						autoComplete="off"
+						className={styles.userInput}
+						name="title"
+						value={input.title}
+						onChange={(e) => handleChange(e.target)}
+					></input>
+					{errors && errors.title && (
+						<p className={styles.errorMessage}>{errors.title}</p>
+					)}
+				</div>
+				<div className={styles.inputContainer}>
+					<label>SUMMARY</label>
+					<textarea
+						type="text"
+						autoComplete="off"
+						className={styles.userInput}
+						name="summary"
+						value={input.summary}
+						onChange={(e) => handleChange(e.target)}
+					></textarea>
+					{errors && errors.summary && (
+						<p className={styles.errorMessage}>{errors.summary}</p>
+					)}
+				</div>
+				<div className={styles.inputContainer}>
+					<label>HEALTHSCORE</label>
+					<input
+						min="0"
+						max="100"
+						placeholder="0"
+						type="number"
+						autoComplete="off"
+						className={styles.userInput}
+						name="healthScore"
+						value={input.healthScore}
+						onChange={(e) => handleChange(e.target)}
+					></input>
+					{errors && errors.healthScore && (
+						<p className={styles.errorMessage}>{errors.healthScore}</p>
+					)}
+				</div>
+				<div className={styles.inputContainer}>
+					<label>SCORE</label>
+					<input
+						min="0"
+						max="100"
+						placeholder="0"
+						type="number"
+						autoComplete="off"
+						className={styles.userInput}
+						name="score"
+						value={input.score}
+						onChange={(e) => handleChange(e.target)}
+					></input>
+					{errors && errors.score && (
+						<p className={styles.errorMessage}>{errors.score}</p>
+					)}
+				</div>
+				<div className={styles.inputContainer}>
+					<label>IMAGE (URL)</label>
+					<input
+						type="text"
+						autoComplete="off"
+						className={styles.userInput}
+						name="image"
+						value={input.image}
+						onChange={(e) => handleChange(e.target)}
+					></input>
+					{errors && errors.image && (
+						<p className={styles.errorMessage}>{errors.image}</p>
+					)}
+				</div>
 				{steps.map((step) => {
 					return (
 						<div className={styles.stepNumberInput} key={step.number + 1}>
@@ -208,7 +260,7 @@ function RecipeCreation() {
 				<button className={styles.stepButton} onClick={(e) => resetSteps(e)}>
 					Reset steps
 				</button>
-				<div>
+				<div className={styles.dietsContainer}>
 					DIETS:
 					<select
 						className={styles.dietSelect}
@@ -221,9 +273,14 @@ function RecipeCreation() {
 						))}
 					</select>
 					{selectedDiets.map((diet) => (
-						<div>
+						<div className={styles.dietChosen}>
 							<span>{diet.toUpperCase()}</span>
-							<button onClick={(e) => removeDiet(e, diet)}>X</button>
+							<button
+								className={styles.dietDeleteButton}
+								onClick={(e) => removeDiet(e, diet)}
+							>
+								X
+							</button>
 						</div>
 					))}
 					{errors && errors.diets && (

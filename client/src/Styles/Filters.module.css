@@ -5,6 +5,9 @@
 	flex-direction: column;
 	gap: 2em;
 }
+.loading {
+	margin: 2em;
+}
 
 .content {
 	display: grid;
@@ -17,6 +20,7 @@
 		'filter recipes recipes recipes'
 		'filter recipes recipes recipes'
 		'pages pages pages pages';
+	margin-bottom: 2em;
 }
 
 .navbar {
@@ -40,42 +44,117 @@
 	width: 90%;
 }
 
-.pagination {
-	grid-area: pages;
-	padding-left: 6%;
-	width: 100%;
-	margin: 3em;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
 .filterHeader {
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: wrap;
-	margin-bottom: 4em;
+	margin-bottom: 1em;
+	border: 0.1em solid rgb(204, 201, 201);
+	padding: 1em;
+	border-radius: 0.3em;
 }
 
+.filterHeader h1 {
+	font-family: 'Poppins', sans-serif;
+}
+.filterHeader button {
+	border: none;
+	margin-top: 9%;
+	height: 50%;
+	transition: all 0.1s ease-in;
+}
+
+.filterHeader button:hover {
+	cursor: pointer;
+	background-color: #ffc547;
+	color: white;
+	border-radius: 8px;
+}
+
+.dietFilter {
+	border: 0.1em solid rgb(204, 201, 201);
+	padding: 1em;
+	border-radius: 0.3em;
+}
 .dietFilter select {
 	max-width: 100%;
+}
+
+.dietsSelected {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+	padding: 0;
+}
+.dietsSelected li {
+	list-style: none;
+	border-radius: 0.5em;
+	margin: 0.5em;
+	padding: 0.5em;
+	background-color: #ffc547;
+	color: white;
 }
 
 .sortFilter {
 	display: flex;
 	flex-direction: column;
 	gap: 0.5em;
+	border: 0.1em solid rgb(204, 201, 201);
+	padding: 1em;
+	margin-top: 2em;
+	border-radius: 0.3em;
 }
 
 .sortFilter div {
 	display: flex;
 	justify-content: space-between;
 }
+.sortFilter div input {
+	cursor: pointer;
+}
+.sortFilter button {
+	border-radius: 0.5em;
+	border: none;
+	background-color: #fcad03;
+	color: white;
+	margin: 0.5em;
+	padding: 0.7em;
+	box-shadow: none;
+	cursor: pointer;
+}
 
-@media (max-width: 600px) {
+.sortFilter button:hover {
+	background-color: #fcbd37;
+}
+
+.pagination {
+	grid-area: pages;
+	padding-left: 6%;
+	width: 100%;
+	margin: 5em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.pagination button {
+	cursor: pointer;
+	margin: 4em 2em;
+	transition: all 0.2s ease-in-out;
+	border: none;
+	padding: 1em;
+}
+.pagination button:hover {
+	background-color: #fcad03;
+	border: none;
+	color: white;
+}
+
+@media (max-width: 650px) {
 	.content {
 		grid-template-columns: 1fr;
-		grid-template-rows: 5% 15% 75% 5%;
+		grid-template-rows: 5% 12% 78% 5%;
 		grid-template-areas:
 			'navbar'
 			'filter'
@@ -83,9 +162,17 @@
 			'pages';
 		max-width: 100%;
 	}
+	.navbar {
+		flex-direction: row;
+	}
+	.recipesGrid {
+		margin-left: 2em;
+	}
 
 	.pagination {
+		justify-content: center;
 		padding: 0;
-		margin: 0;
+		margin-top: 1em;
+		width: 70%;
 	}
 }

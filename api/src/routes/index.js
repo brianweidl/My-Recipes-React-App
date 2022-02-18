@@ -1,8 +1,11 @@
 const { Router } = require('express')
+const { default: axios } = require('axios')
+
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const { Recipe, Diets } = require('../db.js')
-const data = require('../data.js')
+
+const { YOUR_API_KEY } = process.env
 
 const formatApiSteps = (el) => {
 	if (el.analyzedInstructions[0]) {
@@ -16,8 +19,11 @@ const formatApiSteps = (el) => {
 		return formatSteps
 	} else return 'No steps available'
 }
-const getApiRecipes = () => {
-	let formatRecipes = data.results.map((el) => {
+const getApiRecipes = async () => {
+	let apiRecipes = await axios.get(
+		`https://api.spoonacular.com/recipes/complexSearch?apiKey=${YOUR_API_KEY}&addRecipeInformation=true&number=100`
+	)
+	let formatRecipes = apiRecipes.data.results.map((el) => {
 		if (el.vegetarian && !el.diets.includes('vegetarian')) {
 			el.diets.push('vegetarian')
 		}
@@ -34,26 +40,28 @@ const getApiRecipes = () => {
 	})
 	return formatRecipes
 }
+
 const getDbRecipes = async () => {
 	let dbRecipes = await Recipe.findAll({ include: Diets })
 	dbRecipes = JSON.stringify(dbRecipes)
 	dbRecipes = JSON.parse(dbRecipes)
 	dbRecipes = dbRecipes.map((recipe) => {
-		recipe.steps = recipe.steps.split('|')
-		recipe.steps.shift()
+		if (recipe.steps) {
+			recipe.steps = recipe.steps.split('|')
+			recipe.steps.shift()
+		}
 		recipe.diets = recipe.diets.map((diet) => diet.name)
 		return {
 			...recipe,
 		}
 	})
-	console.log(dbRecipes)
 
 	return dbRecipes
 }
 const getAllRecipes = async () => {
 	const apiRecipes = await getApiRecipes()
 	const dbRecipes = await getDbRecipes()
-
+	console.log(apiRecipes)
 	let allRecipes = dbRecipes.concat(apiRecipes)
 	allRecipes = allRecipes.sort((a, b) => {
 		if (a.title.toLowerCase() > b.title.toLowerCase()) {
@@ -67,6 +75,7 @@ const getAllRecipes = async () => {
 
 	return allRecipes
 }
+getAllRecipes()
 
 const router = Router()
 
@@ -78,7 +87,8 @@ router.get('/types', async (req, res) => {
 
 	if (!dbDiets.length) {
 		let diets = ['vegetarian']
-		data.results.forEach((el) => {
+		const apiRecipes = await getApiRecipes()
+		apiRecipes.forEach((el) => {
 			el.diets.forEach((diet) => {
 				if (diet && !diets.includes(diet)) {
 					diets.push(diet)
@@ -103,6 +113,7 @@ router.get('/types', async (req, res) => {
 
 //{"title":"foodie", "summary":"food to eat","healthScore": 86.5, "score": 100.0, "steps": " |prepare  food | eat food", "diets": ["vegetarian","gluten free"]  }
 //{"title":"foodietwo", "summary":"eat all the food","healthScore": 88.3, "score": 95.0, "steps": " |prepare  food | eat food | live food", "diets": ["vegetarian","gluten free"]  }
+
 router.post('/recipe', async (req, res) => {
 	const { title, summary, healthScore, score, image, steps, diets } = req.body
 	try {
@@ -129,6 +140,7 @@ router.post('/recipe', async (req, res) => {
 router.get('/recipes/', async (req, res) => {
 	try {
 		const allRecipes = await getAllRecipes()
+		console.log(allRecipes)
 		if (Object.keys(req.query).length !== 0) {
 			const queryRecipe = allRecipes.find(
 				(recipe) => recipe.title === req.query.name
@@ -136,7 +148,7 @@ router.get('/recipes/', async (req, res) => {
 			if (queryRecipe) {
 				res.json(queryRecipe)
 			} else {
-				res.json('Recipe not found')
+				res.status(404).json('Recipe not found')
 			}
 		} else {
 			res.json(allRecipes)
@@ -153,11 +165,12 @@ router.get('/recipes/:id', async (req, res) => {
 		let id = req.params.id
 		const paramRecipe = allRecipes.find((recipe) => recipe.id == id)
 		if (!paramRecipe) {
-			res.json('Recipe not found')
+			res.status(404).json('Recipe not Found')
+		} else {
+			res.status(200).json(paramRecipe)
 		}
-		res.json(paramRecipe)
 	} catch (error) {
-		res.send(error)
+		res.status(404).send('Recipe not Found')
 	}
 })
 

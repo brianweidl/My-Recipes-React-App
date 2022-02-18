@@ -37,7 +37,7 @@ function RecipeDetail() {
 			<Header />
 
 			{loading ? (
-				<span>Loading...</span>
+				<span className={styles.loading}>Loading...</span>
 			) : (
 				<div className={styles.detailContainer}>
 					<h1>{recipe.title}</h1>
@@ -57,10 +57,11 @@ function RecipeDetail() {
 					</div>
 					<div className={styles.scoreContainer}>
 						<div className={styles.healthScore}>
-							Health Score <span>{recipe.healthScore}</span>
+							<h2>Health Score</h2> <span>{recipe.healthScore}</span>
 						</div>
 						<div className={styles.normalScore}>
-							Score <span>{recipe.score}</span>
+							<h2>Score </h2>
+							<span>{recipe.score}</span>
 						</div>
 					</div>
 
@@ -80,7 +81,9 @@ function RecipeDetail() {
 						</div>
 					)}
 
-					<Link to="/recipes">Back to recipes</Link>
+					<Link to="/recipes" className={styles.backToLink}>
+						Back to recipes
+					</Link>
 				</div>
 			)}
 		</div>

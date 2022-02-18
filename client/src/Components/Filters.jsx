@@ -32,6 +32,7 @@ function Filters() {
 
 			const allRecipes = await axios.get('http://localhost:3001/recipes')
 			const allDiets = await axios.get('http://localhost:3001/types')
+
 			dispatch(getRecipes(allRecipes.data))
 			dispatch(getDiets(allDiets.data))
 			let radio = document.getElementById('az')
@@ -65,7 +66,9 @@ function Filters() {
 	}
 	const resetFilters = () => {
 		dispatch(reset())
+		dispatch(filterAlphabetical('a-z'))
 		setDietsFiltered([])
+		setSelectedRadio('a-z')
 		let select = document.getElementById('select')
 		select.value = 'ALL'
 		let radio = document.getElementById('az')
@@ -77,6 +80,10 @@ function Filters() {
 			return
 		}
 		setCurrentPage(currentPage + 1)
+		window.scrollTo({
+			top: 200,
+			behavior: 'smooth',
+		})
 	}
 
 	const previousPage = () => {
@@ -84,6 +91,10 @@ function Filters() {
 			return
 		}
 		setCurrentPage(currentPage - 1)
+		window.scrollTo({
+			top: 200,
+			behavior: 'smooth',
+		})
 	}
 	const indexOfLastRecipe = currentPage * recipesShown
 	const indexOfFirstRecipe = indexOfLastRecipe - recipesShown
@@ -110,7 +121,7 @@ function Filters() {
 						<button onClick={resetFilters}>Reset Filters</button>
 					</div>
 					<div className={styles.dietFilter}>
-						<h3>By Diet</h3>
+						<h2>By Diet</h2>
 						<select onChange={handleSelectChange} id="select">
 							<option></option>
 							{diets.map((diet, index) => (
@@ -118,7 +129,7 @@ function Filters() {
 							))}
 						</select>
 
-						<ul>
+						<ul className={styles.dietsSelected}>
 							{dietsFiltered.map((diet, index) => {
 								return <li key={index}>{diet}</li>
 							})}
@@ -169,17 +180,17 @@ function Filters() {
 				</div>
 
 				{loading ? (
-					<span>Loading...</span>
+					<span className={styles.loading}>Loading...</span>
 				) : (
 					<div className={styles.recipesGrid}>
 						<Recipes recipes={currentRecipes} />
 					</div>
 				)}
 				<div className={styles.pagination}>
-					<button onClick={() => previousPage()}> Previous </button>
+					<button onClick={() => previousPage()}> &lt; &nbsp; PREVIOUS </button>
 					<span>{currentPage}</span>
 
-					<button onClick={() => nextPage()}> Next </button>
+					<button onClick={() => nextPage()}> NEXT &nbsp; &gt;</button>
 				</div>
 			</div>
 		</div>
@@ -187,3 +198,22 @@ function Filters() {
 }
 
 export default Filters
+
+/* useEffect(() =>{
+		axios.get('http://localhost:3001/types').then((res) => getDiets(res.data) )
+	}) */
+/* function mapStateToProps(state) {
+	return {
+		diets: state.diets,
+		filteredRecipes:state.filteredRecipes
+	}
+}
+function mapDispatchToProps(dispatch) {
+	return {
+		filterBySource: (source) => dispatch(filterBySource(source)),
+		getDiets:(diets) => dispatch(getDiets(diets))
+		...
+		
+	}
+} */
+//export default connect(mapStateToProps, mapDispatchToProps)(Filters)

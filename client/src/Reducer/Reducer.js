@@ -81,6 +81,7 @@ const rootReducer = (state = initialState, action) => {
 				...state,
 				filteredRecipes: recipesFound,
 			}
+
 		case 'RESET':
 			return {
 				...state,

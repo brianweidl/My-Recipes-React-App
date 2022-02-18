@@ -1,20 +1,35 @@
+.navBar {
+	margin: 0em 2em;
+	border-radius: 5px;
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+	background-color: #f8d07a;
+}
+
 .navBarForm {
 	width: 50%;
 	display: flex;
 	align-items: center;
+	margin-left: 1.5em;
 }
 
-.navBarLink {
-	width: 50%;
-	display: flex;
-	align-items: center;
-}
 .link {
 	background-color: #fcad03;
 	text-decoration: none;
 	color: white;
 	padding: 0.6em;
 	border-radius: 0.5em;
+}
+.navBarLink {
+	width: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.link:hover {
+	background-color: #fcbd37;
 }
 
 .navBarInput {
@@ -33,12 +48,12 @@
 	margin: 0.5em;
 	padding: 0.7em;
 	box-shadow: none;
+	cursor: pointer;
 }
 
 .navBarButton:hover {
-	box-shadow: 0 0 10px #719ece;
+	background-color: #fcbd37;
 }
-
 .navBarInput:hover {
 	border-color: #fcad03;
 }
@@ -46,5 +61,17 @@
 .navBarInput:focus {
 	border-color: #fcad03;
 	outline: none !important;
-	box-shadow: 0 0 10px #719ece;
+}
+
+@media (max-width: 650px) {
+	.navBar {
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 3em;
+	}
+	.navBarForm {
+		flex-direction: column;
+		margin: 0;
+	}
 }

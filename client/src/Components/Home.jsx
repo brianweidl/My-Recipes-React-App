@@ -1,21 +1,23 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styles from '../Styles/Home.module.css'
+import homeVideo from '../Images/home-video.mp4'
 
 function Home() {
 	return (
 		<div className={styles.homeContainer}>
-			<Link to="/recipes">Recipes</Link>
-			<div className={styles.videoContainer}>
-				<iframe
-					className={styles.video}
-					src="https://giphy.com/embed/5XLPWTWfj7h6M"
-					width="890"
-					height="500"
-					frameBorder="0"
-					allowFullScreen
-				></iframe>
-				<div className={styles.overlay}>Welcome to My Recipes!</div>
+			<video width="100%" loop autoPlay muted className={styles.video}>
+				<source src={homeVideo} type="video/mp4" />
+			</video>
+
+			<div className={styles.overlay}>
+				<span>
+					Welcome to My Recipes! <br></br>A Full-Stack application, build with
+					PostgreSQL, Express, React and Node.js!
+				</span>
+				<Link className={styles.link} to="/recipes">
+					ENTER
+				</Link>
 			</div>
 		</div>
 	)
