@@ -4,8 +4,8 @@ const { default: axios } = require('axios')
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const { Recipe, Diets } = require('../db.js')
-
-const { YOUR_API_KEY } = process.env
+const data = require('../data.js')
+const { YOUR_API_KEY2 } = process.env
 
 const formatApiSteps = (el) => {
 	if (el.analyzedInstructions[0]) {
@@ -20,10 +20,11 @@ const formatApiSteps = (el) => {
 	} else return 'No steps available'
 }
 const getApiRecipes = async () => {
-	let apiRecipes = await axios.get(
-		`https://api.spoonacular.com/recipes/complexSearch?apiKey=${YOUR_API_KEY}&addRecipeInformation=true&number=100`
-	)
-	let formatRecipes = apiRecipes.data.results.map((el) => {
+	/* let apiRecipes = await axios.get(
+		`https://api.spoonacular.com/recipes/complexSearch?apiKey=${YOUR_API_KEY2}&addRecipeInformation=true&number=100`
+	) */
+
+	let formatRecipes = data.results.map((el) => {
 		if (el.vegetarian && !el.diets.includes('vegetarian')) {
 			el.diets.push('vegetarian')
 		}
@@ -61,7 +62,7 @@ const getDbRecipes = async () => {
 const getAllRecipes = async () => {
 	const apiRecipes = await getApiRecipes()
 	const dbRecipes = await getDbRecipes()
-	console.log(apiRecipes)
+
 	let allRecipes = dbRecipes.concat(apiRecipes)
 	allRecipes = allRecipes.sort((a, b) => {
 		if (a.title.toLowerCase() > b.title.toLowerCase()) {
@@ -75,7 +76,6 @@ const getAllRecipes = async () => {
 
 	return allRecipes
 }
-getAllRecipes()
 
 const router = Router()
 
@@ -140,7 +140,7 @@ router.post('/recipe', async (req, res) => {
 router.get('/recipes/', async (req, res) => {
 	try {
 		const allRecipes = await getAllRecipes()
-		console.log(allRecipes)
+
 		if (Object.keys(req.query).length !== 0) {
 			const queryRecipe = allRecipes.find(
 				(recipe) => recipe.title === req.query.name

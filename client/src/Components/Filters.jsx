@@ -68,7 +68,7 @@ function Filters() {
 		dispatch(reset())
 		dispatch(filterAlphabetical('a-z'))
 		setDietsFiltered([])
-		setSelectedRadio('a-z')
+		setCurrentPage(1)
 		let select = document.getElementById('select')
 		select.value = 'ALL'
 		let radio = document.getElementById('az')
@@ -116,11 +116,11 @@ function Filters() {
 					></NavBar>
 				</div>
 				<div className={styles.filters}>
-					<div className={styles.filterHeader}>
+					<div className={styles.filters_header}>
 						<h1>Filters</h1>
 						<button onClick={resetFilters}>Reset Filters</button>
 					</div>
-					<div className={styles.dietFilter}>
+					<div className={styles.filters_dietSelect}>
 						<h2>By Diet</h2>
 						<select onChange={handleSelectChange} id="select">
 							<option></option>
@@ -129,14 +129,14 @@ function Filters() {
 							))}
 						</select>
 
-						<ul className={styles.dietsSelected}>
+						<ul className={styles.filters_dietSelected}>
 							{dietsFiltered.map((diet, index) => {
 								return <li key={index}>{diet}</li>
 							})}
 						</ul>
 					</div>
 
-					<div className={styles.sortFilter}>
+					<div className={styles.filters_sortFilters}>
 						<h2>Sort</h2>
 						<div>
 							<label htmlFor="az">A - Z</label>
@@ -186,12 +186,12 @@ function Filters() {
 						<Recipes recipes={currentRecipes} />
 					</div>
 				)}
-				<div className={styles.pagination}>
-					<button onClick={() => previousPage()}> &lt; &nbsp; PREVIOUS </button>
-					<span>{currentPage}</span>
+			</div>
+			<div className={styles.pagination}>
+				<button onClick={() => previousPage()}> &lt; &nbsp; PREVIOUS </button>
+				<span>{currentPage}</span>
 
-					<button onClick={() => nextPage()}> NEXT &nbsp; &gt;</button>
-				</div>
+				<button onClick={() => nextPage()}> NEXT &nbsp; &gt;</button>
 			</div>
 		</div>
 	)

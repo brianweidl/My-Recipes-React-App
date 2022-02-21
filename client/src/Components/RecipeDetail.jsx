@@ -71,7 +71,7 @@ function RecipeDetail() {
 							<ul>
 								{recipe.steps.map((step, index) => {
 									return (
-										<li className={styles.stepList} key={index}>
+										<li className={styles.stepContainer_list} key={index}>
 											<span>Step {index + 1}: </span>
 											<span>{step}</span>
 										</li>

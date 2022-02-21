@@ -5,7 +5,7 @@ module.exports = (sequelize) => {
 	// defino el modelo
 	sequelize.define('recipe', {
 		title: {
-			type: DataTypes.STRING,
+			type: DataTypes.TEXT,
 			allowNull: false,
 		},
 		id: {
@@ -15,7 +15,7 @@ module.exports = (sequelize) => {
 			allowNull: false,
 		},
 		summary: {
-			type: DataTypes.STRING,
+			type: DataTypes.TEXT,
 			allowNull: false,
 		},
 		healthScore: {
@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
 			type: DataTypes.FLOAT,
 		},
 		image: {
-			type: DataTypes.STRING,
+			type: DataTypes.TEXT,
 		},
 		steps: {
 			type: DataTypes.TEXT,

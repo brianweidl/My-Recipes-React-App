@@ -159,7 +159,6 @@ function RecipeCreation() {
 			</Link>
 
 			<form className={styles.formContainer}>
-				{/* {getInputsToMap()} */}
 				<div className={styles.inputContainer}>
 					<label>TITLE</label>
 					<input

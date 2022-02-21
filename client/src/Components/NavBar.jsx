@@ -12,7 +12,7 @@ function NavBar({ selectedRadio, filterRadioButton, setDietsFiltered }) {
 		<div className={styles.navBar}>
 			<form
 				id="form"
-				className={styles.navBarForm}
+				className={styles.navBar_form}
 				onSubmit={(e) => {
 					e.preventDefault()
 					dispatch(filterByName(searchValue))
@@ -24,7 +24,7 @@ function NavBar({ selectedRadio, filterRadioButton, setDietsFiltered }) {
 				}}
 			>
 				<input
-					className={styles.navBarInput}
+					className={styles.navBar_input}
 					autoComplete="off"
 					placeholder="Search..."
 					id="search"
@@ -32,7 +32,7 @@ function NavBar({ selectedRadio, filterRadioButton, setDietsFiltered }) {
 				></input>
 
 				<button
-					className={styles.navBarButton}
+					className={styles.navBar_button}
 					type="submit"
 					onClick={(e) => {
 						dispatch(filterByName(searchValue))
@@ -42,8 +42,8 @@ function NavBar({ selectedRadio, filterRadioButton, setDietsFiltered }) {
 					Search
 				</button>
 			</form>
-			<div className={styles.navBarLink}>
-				<Link to="/recipe-maker" className={styles.link}>
+			<div className={styles.navBar_link}>
+				<Link to="/recipe-maker" className={styles.navBar_linkAnchor}>
 					Create your own recipe!
 				</Link>
 			</div>

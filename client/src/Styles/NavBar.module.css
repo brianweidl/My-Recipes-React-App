@@ -2,46 +2,47 @@
 	margin: 0em 2em;
 	border-radius: 5px;
 	width: 100%;
+	padding: 2em;
 	display: flex;
 	justify-content: space-around;
 	background-color: #f8d07a;
 }
 
-.navBarForm {
+.navBar_form {
 	width: 50%;
 	display: flex;
 	align-items: center;
 	margin-left: 1.5em;
 }
 
-.link {
-	background-color: #fcad03;
-	text-decoration: none;
-	color: white;
-	padding: 0.6em;
-	border-radius: 0.5em;
-}
-.navBarLink {
+.navBar_link {
 	width: 50%;
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
 }
+.navBar_linkAnchor {
+	background-color: #fcad03;
+	text-decoration: none;
+	color: white;
+	padding: 0.6em;
+	border-radius: 8px;
+}
 
-.link:hover {
+.navBar_linkAnchor:hover {
 	background-color: #fcbd37;
 }
 
-.navBarInput {
+.navBar_input {
 	width: 80%;
 	border: 2px solid #e1e5ee;
-	border-radius: 0.5em;
+	border-radius: 8px;
 	padding: 0.5em;
 	margin-left: 1em;
 }
 
-.navBarButton {
-	border-radius: 0.5em;
+.navBar_button {
+	border-radius: 8px;
 	border: none;
 	background-color: #fcad03;
 	color: white;
@@ -51,14 +52,14 @@
 	cursor: pointer;
 }
 
-.navBarButton:hover {
+.navBar_button:hover {
 	background-color: #fcbd37;
 }
-.navBarInput:hover {
+.navBar_input:hover {
 	border-color: #fcad03;
 }
 
-.navBarInput:focus {
+.navBar_input:focus {
 	border-color: #fcad03;
 	outline: none !important;
 }
@@ -69,9 +70,12 @@
 		justify-content: center;
 		align-items: center;
 		gap: 3em;
+		width: 100%;
+		min-width: 300px;
 	}
-	.navBarForm {
+	.navBar_form {
 		flex-direction: column;
 		margin: 0;
+		width: 100%;
 	}
 }

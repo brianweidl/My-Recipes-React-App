@@ -1,6 +1,5 @@
 .mainContainer {
 	background-color: white;
-	height: auto;
 	display: flex;
 	flex-direction: column;
 	gap: 2em;
@@ -11,16 +10,15 @@
 
 .content {
 	display: grid;
-	grid-template-columns: 20% 1fr 1fr 1fr;
-	grid-template-rows: 5% 30% 30% 30% 5%;
-
+	/* grid-template-columns: 20% 1fr 1fr 1fr;
+	grid-template-rows: 5% 30% 30% 30% 5%; */
+	height: 100%;
 	grid-template-areas:
 		'navbar navbar navbar navbar'
 		'filter recipes recipes recipes'
 		'filter recipes recipes recipes'
 		'filter recipes recipes recipes'
-		'pages pages pages pages';
-	margin-bottom: 2em;
+		/* 'pages pages pages pages' */;
 }
 
 .navbar {
@@ -30,7 +28,6 @@
 }
 
 .filters {
-	/* border: 2em solid blue; */
 	grid-area: filter;
 	padding: 10%;
 	display: flex;
@@ -40,13 +37,15 @@
 .recipesGrid {
 	grid-area: recipes;
 	margin-top: 3em;
-	margin-left: 6em;
-	width: 90%;
+	margin-left: 1em;
+	margin-bottom: 6em;
+	width: 100%;
 }
 
-.filterHeader {
+.filters_header {
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	flex-wrap: wrap;
 	margin-bottom: 1em;
 	border: 0.1em solid rgb(204, 201, 201);
@@ -54,40 +53,42 @@
 	border-radius: 0.3em;
 }
 
-.filterHeader h1 {
+.filters_header h1 {
 	font-family: 'Poppins', sans-serif;
 }
-.filterHeader button {
+.filters_header button {
 	border: none;
-	margin-top: 9%;
-	height: 50%;
+	outline: none;
+	/* margin: 9%; */
 	transition: all 0.1s ease-in;
+	padding: 1em;
+	margin: 1em 0em;
 }
 
-.filterHeader button:hover {
+.filters_header button:hover {
 	cursor: pointer;
 	background-color: #ffc547;
 	color: white;
 	border-radius: 8px;
 }
 
-.dietFilter {
+.filters_dietSelect {
 	border: 0.1em solid rgb(204, 201, 201);
 	padding: 1em;
 	border-radius: 0.3em;
 }
-.dietFilter select {
+.filters_dietSelect select {
 	max-width: 100%;
 }
 
-.dietsSelected {
+.filters_dietSelected {
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: flex-start;
 	padding: 0;
 }
-.dietsSelected li {
+.filters_dietSelected li {
 	list-style: none;
 	border-radius: 0.5em;
 	margin: 0.5em;
@@ -96,7 +97,7 @@
 	color: white;
 }
 
-.sortFilter {
+.filters_sortFilters {
 	display: flex;
 	flex-direction: column;
 	gap: 0.5em;
@@ -106,14 +107,14 @@
 	border-radius: 0.3em;
 }
 
-.sortFilter div {
+.filters_sortFilters div {
 	display: flex;
 	justify-content: space-between;
 }
-.sortFilter div input {
+.filters_sortFilters div input {
 	cursor: pointer;
 }
-.sortFilter button {
+.filters_sortFilters button {
 	border-radius: 0.5em;
 	border: none;
 	background-color: #fcad03;
@@ -124,7 +125,7 @@
 	cursor: pointer;
 }
 
-.sortFilter button:hover {
+.filters_sortFilters button:hover {
 	background-color: #fcbd37;
 }
 
@@ -132,7 +133,6 @@
 	grid-area: pages;
 	padding-left: 6%;
 	width: 100%;
-	margin: 5em;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -151,28 +151,44 @@
 	color: white;
 }
 
+@media (max-width: 1700px) {
+	.content {
+		margin-bottom: 3em;
+	}
+	.pagination {
+		margin-top: 10em;
+	}
+}
+@media (max-width: 1180px) {
+	.content {
+		margin-bottom: 20em;
+	}
+	.pagination {
+		margin-top: 10em;
+	}
+}
 @media (max-width: 650px) {
 	.content {
-		grid-template-columns: 1fr;
-		grid-template-rows: 5% 12% 78% 5%;
+		/* grid-template-columns: 1fr;
+		grid-template-rows: 3% 13% 82% 2%; */
 		grid-template-areas:
 			'navbar'
 			'filter'
 			'recipes'
 			'pages';
-		max-width: 100%;
+		min-width: 100%;
 	}
 	.navbar {
 		flex-direction: row;
 	}
 	.recipesGrid {
 		margin-left: 2em;
+		margin-bottom: 2em;
 	}
 
 	.pagination {
 		justify-content: center;
-		padding: 0;
-		margin-top: 1em;
 		width: 70%;
+		margin-top: 12em;
 	}
 }

@@ -14,10 +14,10 @@ function Recipes({ recipes }) {
 		}
 		dietsForCard.push(`and ${diets.length - 3} more`)
 		return (
-			<ul className={styles.dietsList}>
+			<ul className={styles.recipeCard_dietsContainer}>
 				{dietsForCard.map((diet, index) => {
 					return (
-						<li className={styles.dietElement} key={index}>
+						<li className={styles.dietsContainer_dietElement} key={index}>
 							{diet}
 						</li>
 					)
@@ -38,21 +38,24 @@ function Recipes({ recipes }) {
 
 			<div className={styles.recipeContainer}>
 				{recipes.length ? (
-					recipes.map((recipe, index) => (
-						<div key={recipe.id} className={styles.itemRecipe}>
-							<div className={styles.cardTitle}>
+					recipes.map((recipe) => (
+						<div key={recipe.id} className={styles.recipeCard}>
+							<div className={styles.recipeCard_title}>
 								<h3>{recipe.title}</h3>
 							</div>
 							<img
 								src={recipe.image}
 								alt="Recipe"
-								className={styles.recipeImg}
+								className={styles.recipeCard_image}
 							/>
 							{recipe.diets.length < 4 ? (
-								<ul className={styles.dietsList}>
+								<ul className={styles.recipeCard_dietsContainer}>
 									{recipe.diets.map((diet, index) => {
 										return (
-											<li key={index} className={styles.dietElement}>
+											<li
+												key={index}
+												className={styles.dietsContainer_dietElement}
+											>
 												{diet}{' '}
 											</li>
 										)
@@ -63,7 +66,7 @@ function Recipes({ recipes }) {
 							)}
 
 							<Link
-								className={styles.learnMore}
+								className={styles.recipeCard_learnMore}
 								to={{
 									pathname: `/recipe-detail/${recipe.id}`,
 								}}
