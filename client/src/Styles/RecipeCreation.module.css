@@ -1,16 +1,20 @@
-.formContainer {
+.form_container {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
 	gap: 2em;
-	margin-left: 5%;
+	margin-left: 15%;
 	margin-top: 2em;
+	margin-bottom: 3em;
+	width: 70%;
+	background-image: url('../Images/food-background-detail7.jpg');
+	background-size: cover;
+	padding: 2em;
 }
 
 .backLink {
 	text-decoration: none;
-
 	padding: 1em;
 	margin-left: 1em;
 	margin-bottom: 2em;
@@ -29,10 +33,57 @@
 	margin: 0.5em;
 }
 
+.inputs_mainContainer {
+	z-index: 1;
+	width: 90%;
+	display: grid;
+	grid-template-areas:
+		'inputInfo stepInfo'
+		'dietInfo dietInfo';
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: auto auto;
+	align-items: flex-start;
+	justify-items: center;
+	gap: 1em;
+}
+.form_container h1 {
+	background-color: white;
+	padding: 1em;
+	border-radius: 4px;
+	box-shadow: 2px 3px 6px 2px rgba(0, 0, 0, 0.23);
+	font-family: 'Inconsolata', monospace;
+	font-weight: 400;
+}
+.inputInfo_container {
+	width: 90%;
+	grid-area: inputInfo;
+	margin-right: 2em;
+	margin-bottom: 3em;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	background-color: #f1ece1;
+	padding: 1em;
+	border-radius: 4px;
+	box-shadow: 2px 3px 6px 2px rgba(0, 0, 0, 0.23);
+}
+.infoNumber {
+	background: #fcad03;
+	color: #fff;
+	height: 30px;
+	width: 30px;
+	display: inline-block;
+	font-size: 0.8em;
+	margin-right: 4px;
+	line-height: 30px;
+	text-align: center;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+	border-radius: 15px 15px 15px 0px;
+}
 .inputContainer {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
 	gap: 0.3em;
 	border-radius: 0.5em;
 }
@@ -45,9 +96,7 @@
 .inputContainer textarea {
 	border: none;
 	padding-bottom: 8em;
-
-	width: 225%;
-
+	width: 200%;
 	background-color: #f8e6c0;
 	border-radius: 0.5em;
 }
@@ -55,26 +104,63 @@ input::placeholder {
 	color: gray;
 }
 input[type='number'] {
-	text-align: center;
-	width: 45%;
-	padding: 1em;
+	text-align: start;
 }
 
 .userInput:focus {
 	border: 0.2em solid #fcad03;
 	outline: none !important;
 }
+.imageInputContainer {
+	display: flex;
+	flex-direction: column;
+	border-radius: 0.5em;
+	width: 20em;
+}
+.imageInputContainer input {
+	border: none;
+	border-radius: 0.3em;
+	background-color: #f8e6c0;
+	margin-bottom: 3em;
+}
+.imageChosen {
+	border: 1px solid #fcad03;
+	width: 100%;
+	height: 15em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+.imageChosen img {
+	width: 100%;
+	height: 100%;
+}
+
+.input_Steps {
+	grid-area: stepInfo;
+	width: 90%;
+	height: fit-content;
+	display: flex;
+	flex-direction: column;
+	background-color: #f1ece1;
+	padding: 1em;
+	border-radius: 4px;
+	box-shadow: 2px 3px 6px 2px rgba(0, 0, 0, 0.23);
+}
 
 .stepNumberInput {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
+	align-items: flex-start;
 	gap: 0.3em;
 }
 .stepTextInput {
 	border: none;
 	border-radius: 0.3em;
 	background-color: #f8e6c0;
+	padding: 0.7em;
+	width: 90%;
 }
 .stepTextInput:focus {
 	border: 0.2em solid #fcad03;
@@ -82,10 +168,12 @@ input[type='number'] {
 }
 .stepButton {
 	border-radius: 0.5em;
+	width: 20%;
 	border: none;
 	background-color: #fcad03;
 	color: white;
-	margin: 0.5em;
+
+	margin: 1em 0em;
 	padding: 0.7em;
 	box-shadow: none;
 }
@@ -95,11 +183,23 @@ input[type='number'] {
 }
 
 .dietsContainer {
+	grid-area: dietInfo;
 	display: flex;
-
-	flex-direction: column;
 	align-items: center;
-	gap: 0.3em;
+	flex-wrap: wrap;
+	gap: 1em;
+	width: 100%;
+	background-color: #f1ece1;
+	padding: 1em;
+	border-radius: 4px;
+	margin-left: 3em;
+	box-shadow: 2px 3px 6px 2px rgba(0, 0, 0, 0.23);
+}
+.dietsContainer h2 {
+	margin: 1em;
+}
+.dietSelect {
+	height: 20%;
 }
 
 .dietChosen {
@@ -123,7 +223,7 @@ input[type='number'] {
 .dietDeleteButton:hover {
 	color: red;
 }
-.submitButton {
+.form_submitButton {
 	border-radius: 0.5em;
 	border: none;
 	background-color: #fcad03;
@@ -132,11 +232,55 @@ input[type='number'] {
 	padding: 0.9em;
 	box-shadow: none;
 }
-.submitButton:hover {
+.form_submitButton:hover {
 	font-weight: 850;
 	background-color: #fc7303;
 }
 
 .errorMessage {
 	color: rgb(255, 60, 0);
+}
+
+@media (max-width: 1100px) {
+	.inputs_mainContainer {
+		grid-template-areas:
+			'inputInfo'
+			'stepInfo'
+			'dietInfo';
+		grid-template-columns: 90%;
+		grid-template-rows: auto auto auto;
+		justify-content: center;
+		align-items: center;
+	}
+	.inputInfo_container {
+		margin: 0;
+	}
+	.input_Steps {
+		margin: 0;
+	}
+	.dietsContainer {
+		margin: 0;
+	}
+	.inputContainer textarea {
+		width: 150%;
+	}
+}
+@media (max-width: 700px) {
+	.inputContainer textarea {
+		width: 90%;
+	}
+	.imageInputContainer {
+		width: 90%;
+	}
+	.stepButton {
+		width: 35%;
+	}
+	.form_container {
+		margin-left: 5%;
+	}
+}
+@media (max-width: 400px) {
+	.form_container {
+		width: 100%;
+	}
 }

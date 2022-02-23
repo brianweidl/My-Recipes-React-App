@@ -2,7 +2,9 @@
 	background-color: white;
 	display: flex;
 	flex-direction: column;
+	width: 100%;
 	gap: 2em;
+	padding: 0 !important;
 }
 .loading {
 	margin: 2em;
@@ -17,8 +19,7 @@
 		'navbar navbar navbar navbar'
 		'filter recipes recipes recipes'
 		'filter recipes recipes recipes'
-		'filter recipes recipes recipes'
-		/* 'pages pages pages pages' */;
+		'filter recipes recipes recipes';
 }
 
 .navbar {
@@ -59,10 +60,11 @@
 .filters_header button {
 	border: none;
 	outline: none;
-	/* margin: 9%; */
 	transition: all 0.1s ease-in;
 	padding: 1em;
 	margin: 1em 0em;
+	border-radius: 8px;
+	background-color: white;
 }
 
 .filters_header button:hover {
@@ -130,9 +132,8 @@
 }
 
 .pagination {
-	grid-area: pages;
 	padding-left: 6%;
-	width: 100%;
+	width: 100vw;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -169,26 +170,28 @@
 }
 @media (max-width: 650px) {
 	.content {
-		/* grid-template-columns: 1fr;
-		grid-template-rows: 3% 13% 82% 2%; */
 		grid-template-areas:
 			'navbar'
 			'filter'
-			'recipes'
-			'pages';
+			'recipes';
 		min-width: 100%;
 	}
 	.navbar {
 		flex-direction: row;
+		width: 100%;
+		margin-left: 1em;
 	}
 	.recipesGrid {
-		margin-left: 2em;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 		margin-bottom: 2em;
+		margin-left: 0.5em;
 	}
 
 	.pagination {
 		justify-content: center;
-		width: 70%;
-		margin-top: 12em;
+		margin-top: 14em;
 	}
 }

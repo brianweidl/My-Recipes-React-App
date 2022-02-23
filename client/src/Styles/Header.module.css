@@ -1,5 +1,4 @@
 .header {
-	margin-top: 1em;
 	margin-bottom: 2em;
 	padding-bottom: 0.5em;
 	border-bottom: 0.3em solid orange;
@@ -45,5 +44,10 @@
 	.navLink_anchor {
 		top: 0em;
 		left: 0em;
+	}
+}
+@media (max-width: 400px) and (min-width: 300px) {
+	.header {
+		width: 130%;
 	}
 }

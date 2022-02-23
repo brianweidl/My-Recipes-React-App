@@ -83,36 +83,9 @@
 	color: white;
 }
 
-/* @media (max-width: 1450px) {
+@media (max-width: 650px) {
 	.recipeContainer {
+		grid-template-columns: repeat(auto-fit, 22em);
 		grid-template-rows: repeat(auto-fit, 40em);
-		grid-template-columns: 1fr 1fr;
-		align-items: center;
-		margin: 0;
-		max-width: 90%;
-	}
-	.recipeCard {
-		height: 85%;
-		padding: 0.5em;
-	}
-	.recipeCard_learnMore {
-		margin-top: 2em;
 	}
 }
-
-@media (max-width: 1150px) {
-	.recipeContainer {
-		grid-template-rows: repeat(auto-fit, 1fr);
-		grid-template-columns: 1fr;
-		align-items: center;
-		margin: 0;
-		max-width: 80%;
-	}
-	.recipeCard {
-		padding: 2em;
-	}
-	.recipeCard_learnMore {
-		margin-top: 2em;
-	}
-}
- */

@@ -41,37 +41,44 @@ function RecipeDetail() {
 			) : (
 				<div className={styles.detailContainer}>
 					<h1>{recipe.title}</h1>
-					<img src={recipe.image} alt="recipe"></img>
-					<div className={styles.summaryContainer}>
-						<h3>Summary</h3>
-						<p className={styles.summaryContent}>{getSummary()}</p>
-					</div>
-					<div className={styles.dietList}>
-						<h3>Diets:</h3>
-						<ul>
-							{recipe.diets &&
-								recipe.diets.map((diet) => {
-									return <li key={diet.id}>{diet}</li>
-								})}
-						</ul>
-					</div>
-					<div className={styles.scoreContainer}>
-						<div className={styles.healthScore}>
-							<h2>Health Score</h2> <span>{recipe.healthScore}</span>
+					<div className={styles.detail_infoGrid}>
+						<div className={styles.detail_image}>
+							<img src={recipe.image} alt="recipe"></img>
 						</div>
-						<div className={styles.normalScore}>
-							<h2>Score </h2>
-							<span>{recipe.score}</span>
-						</div>
-					</div>
 
+						<div className={styles.detail_dietsList}>
+							<h3>Diets:</h3>
+							<ul>
+								{recipe.diets &&
+									recipe.diets.map((diet) => {
+										return <li key={diet.id}>{diet}</li>
+									})}
+							</ul>
+						</div>
+						<div className={styles.detail_scoreContainer}>
+							<div className={styles.healthScore}>
+								<h2>Health Score</h2> <span>{recipe.healthScore}</span>
+							</div>
+							<div className={styles.normalScore}>
+								<h2>Score </h2>
+								<span>{recipe.score}</span>
+							</div>
+						</div>
+					</div>
+					<div className={styles.detail_summaryContainer}>
+						<h3>Summary</h3>
+						<p className={styles.detail_summaryContent}>{getSummary()}</p>
+					</div>
 					{recipe.steps && recipe.steps !== 'No steps available' && (
-						<div className={styles.stepContainer}>
+						<div className={styles.detail_stepContainer}>
 							<h2>Step by Step</h2>
 							<ul>
 								{recipe.steps.map((step, index) => {
 									return (
-										<li className={styles.stepContainer_list} key={index}>
+										<li
+											className={styles.detail_stepContainer_list}
+											key={index}
+										>
 											<span>Step {index + 1}: </span>
 											<span>{step}</span>
 										</li>

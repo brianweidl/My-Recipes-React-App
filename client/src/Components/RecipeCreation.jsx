@@ -57,6 +57,7 @@ function RecipeCreation() {
 
 	const addStep = (e) => {
 		e.preventDefault()
+		if (steps.length > 7) return
 		setSteps([
 			...steps,
 			{ stepInput: '', number: steps[steps.length - 1].number + 1 },
@@ -158,136 +159,162 @@ function RecipeCreation() {
 				<span className={styles.span}>&lt;</span>Back to recipes
 			</Link>
 
-			<form className={styles.formContainer}>
-				<div className={styles.inputContainer}>
-					<label>TITLE</label>
-					<input
-						autoComplete="off"
-						className={styles.userInput}
-						name="title"
-						value={input.title}
-						onChange={(e) => handleChange(e.target)}
-					></input>
-					{errors && errors.title && (
-						<p className={styles.errorMessage}>{errors.title}</p>
-					)}
-				</div>
-				<div className={styles.inputContainer}>
-					<label>SUMMARY</label>
-					<textarea
-						type="text"
-						autoComplete="off"
-						className={styles.userInput}
-						name="summary"
-						value={input.summary}
-						onChange={(e) => handleChange(e.target)}
-					></textarea>
-					{errors && errors.summary && (
-						<p className={styles.errorMessage}>{errors.summary}</p>
-					)}
-				</div>
-				<div className={styles.inputContainer}>
-					<label>HEALTHSCORE</label>
-					<input
-						min="0"
-						max="100"
-						placeholder="0"
-						type="number"
-						autoComplete="off"
-						className={styles.userInput}
-						name="healthScore"
-						value={input.healthScore}
-						onChange={(e) => handleChange(e.target)}
-					></input>
-					{errors && errors.healthScore && (
-						<p className={styles.errorMessage}>{errors.healthScore}</p>
-					)}
-				</div>
-				<div className={styles.inputContainer}>
-					<label>SCORE</label>
-					<input
-						min="0"
-						max="100"
-						placeholder="0"
-						type="number"
-						autoComplete="off"
-						className={styles.userInput}
-						name="score"
-						value={input.score}
-						onChange={(e) => handleChange(e.target)}
-					></input>
-					{errors && errors.score && (
-						<p className={styles.errorMessage}>{errors.score}</p>
-					)}
-				</div>
-				<div className={styles.inputContainer}>
-					<label>IMAGE (URL)</label>
-					<input
-						type="text"
-						autoComplete="off"
-						className={styles.userInput}
-						name="image"
-						value={input.image}
-						onChange={(e) => handleChange(e.target)}
-					></input>
-					{errors && errors.image && (
-						<p className={styles.errorMessage}>{errors.image}</p>
-					)}
-				</div>
-				{steps.map((step) => {
-					return (
-						<div className={styles.stepNumberInput} key={step.number + 1}>
-							<label>{`STEP ${step.number + 1}`}</label>
+			<form className={styles.form_container}>
+				<h1>CREATE YOUR OWN RECIPE!</h1>
+				<div className={styles.inputs_mainContainer}>
+					<div className={styles.inputInfo_container}>
+						<h2>
+							<span className={styles.infoNumber}>1</span>Recipe Info
+						</h2>
+						<div className={styles.inputContainer}>
+							<label>TITLE</label>
 							<input
-								className={styles.stepTextInput}
-								type="text"
-								onChange={(e) => {
-									handleStepInputChange(e.target, step.number)
-								}}
-								value={step.stepInput}
+								autoComplete="off"
+								className={styles.userInput}
+								name="title"
+								value={input.title}
+								onChange={(e) => handleChange(e.target)}
 							></input>
+							{errors && errors.title && (
+								<p className={styles.errorMessage}>{errors.title}</p>
+							)}
 						</div>
-					)
-				})}
-				{errors && errors.steps && (
-					<p className={styles.errorMessage}>{errors.steps}</p>
-				)}
+						<div className={styles.inputContainer}>
+							<label>SUMMARY</label>
+							<textarea
+								type="text"
+								autoComplete="off"
+								className={styles.userInput}
+								name="summary"
+								value={input.summary}
+								onChange={(e) => handleChange(e.target)}
+							></textarea>
+							{errors && errors.summary && (
+								<p className={styles.errorMessage}>{errors.summary}</p>
+							)}
+						</div>
+						<div className={styles.scoresContainer}>
+							<div className={styles.inputContainer}>
+								<label>HEALTHSCORE</label>
+								<input
+									min="0"
+									max="100"
+									type="number"
+									autoComplete="off"
+									className={styles.userInput}
+									name="healthScore"
+									value={input.healthScore}
+									onChange={(e) => handleChange(e.target)}
+								></input>
+								{errors && errors.healthScore && (
+									<p className={styles.errorMessage}>{errors.healthScore}</p>
+								)}
+							</div>
+							<div className={styles.inputContainer}>
+								<label>SCORE</label>
+								<input
+									min="0"
+									max="100"
+									type="number"
+									autoComplete="off"
+									className={styles.userInput}
+									name="score"
+									value={input.score}
+									onChange={(e) => handleChange(e.target)}
+								></input>
+								{errors && errors.score && (
+									<p className={styles.errorMessage}>{errors.score}</p>
+								)}
+							</div>
+						</div>
+						<div className={styles.imageInputContainer}>
+							<label>IMAGE (URL)</label>
+							<input
+								type="text"
+								autoComplete="off"
+								className={styles.userInput}
+								name="image"
+								value={input.image}
+								onChange={(e) => handleChange(e.target)}
+							></input>
+							<div className={styles.imageChosen}>
+								{input.image.length > 5 ? (
+									<img src={input.image} alt="temporary input"></img>
+								) : (
+									<div>Choose your recipe image </div>
+								)}
+							</div>
+							{errors && errors.image && (
+								<p className={styles.errorMessage}>{errors.image}</p>
+							)}
+						</div>
+					</div>
+					<div className={styles.input_Steps}>
+						<h2>
+							<span className={styles.infoNumber}>2</span>Step by Step
+						</h2>
+						<span>(Max. 8 steps)</span>
+						{steps.map((step) => {
+							return (
+								<div className={styles.stepNumberInput} key={step.number + 1}>
+									<label>{`STEP ${step.number + 1}`}</label>
+									<input
+										className={styles.stepTextInput}
+										type="text"
+										onChange={(e) => {
+											handleStepInputChange(e.target, step.number)
+										}}
+										value={step.stepInput}
+									></input>
+								</div>
+							)
+						})}
+						{errors && errors.steps && (
+							<p className={styles.errorMessage}>{errors.steps}</p>
+						)}
 
-				<button className={styles.stepButton} onClick={(e) => addStep(e)}>
-					Add Step
-				</button>
-				<button className={styles.stepButton} onClick={(e) => resetSteps(e)}>
-					Reset steps
-				</button>
-				<div className={styles.dietsContainer}>
-					DIETS:
-					<select
-						className={styles.dietSelect}
-						onChange={(e) => handleSelect(e.target)}
-						id="select"
-					>
-						<option></option>
-						{diets.map((diet) => (
-							<option>{diet.name.toUpperCase()}</option>
+						<button className={styles.stepButton} onClick={(e) => addStep(e)}>
+							Add Step
+						</button>
+						<button
+							className={styles.stepButton}
+							onClick={(e) => resetSteps(e)}
+						>
+							Reset steps
+						</button>
+					</div>
+					<div className={styles.dietsContainer}>
+						<h2>
+							<span className={styles.infoNumber}>3</span>Diets
+						</h2>
+						<select
+							className={styles.dietSelect}
+							onChange={(e) => handleSelect(e.target)}
+							id="select"
+						>
+							<option></option>
+							{diets.map((diet) => (
+								<option>{diet.name.toUpperCase()}</option>
+							))}
+						</select>
+						{selectedDiets.map((diet) => (
+							<div className={styles.dietChosen}>
+								<span>{diet.toUpperCase()}</span>
+								<button
+									className={styles.dietDeleteButton}
+									onClick={(e) => removeDiet(e, diet)}
+								>
+									X
+								</button>
+							</div>
 						))}
-					</select>
-					{selectedDiets.map((diet) => (
-						<div className={styles.dietChosen}>
-							<span>{diet.toUpperCase()}</span>
-							<button
-								className={styles.dietDeleteButton}
-								onClick={(e) => removeDiet(e, diet)}
-							>
-								X
-							</button>
-						</div>
-					))}
-					{errors && errors.diets && (
-						<p className={styles.errorMessage}>{errors.diets}</p>
-					)}
+						{errors && errors.diets && (
+							<p className={styles.errorMessage}>{errors.diets}</p>
+						)}
+					</div>
 				</div>
 				<button
-					className={styles.submitButton}
+					className={styles.form_submitButton}
 					onClick={(e) => handleSubmit(e)}
 				>
 					SUBMIT RECIPE !
