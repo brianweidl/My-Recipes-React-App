@@ -4,8 +4,8 @@ const { default: axios } = require('axios')
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const { Recipe, Diets } = require('../db.js')
-const data = require('../data.js')
-const { YOUR_API_KEY2 } = process.env
+
+const { YOUR_API_KEY } = process.env
 
 const formatApiSteps = (el) => {
 	if (el.analyzedInstructions[0]) {
@@ -20,11 +20,11 @@ const formatApiSteps = (el) => {
 	} else return 'No steps available'
 }
 const getApiRecipes = async () => {
-	/* let apiRecipes = await axios.get(
-		`https://api.spoonacular.com/recipes/complexSearch?apiKey=${YOUR_API_KEY2}&addRecipeInformation=true&number=100`
-	) */
+	let apiRecipes = await axios.get(
+		`https://api.spoonacular.com/recipes/complexSearch?apiKey=${YOUR_API_KEY}&addRecipeInformation=true&number=100`
+	)
 
-	let formatRecipes = data.results.map((el) => {
+	let formatRecipes = apiRecipes.data.results.map((el) => {
 		if (el.vegetarian && !el.diets.includes('vegetarian')) {
 			el.diets.push('vegetarian')
 		}
