@@ -1,43 +1,43 @@
-import axios from 'axios'
-import React from 'react'
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import Header from './Header'
-import styles from '../Styles/RecipeDetail.module.css'
+import axios from "axios";
+import React from "react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import Header from "./Header";
+import styles from "../Styles/RecipeDetail.module.css";
 
 function RecipeDetail() {
-	const { id } = useParams()
-	const [recipe, setRecipe] = useState({})
+	const { id } = useParams();
+	const [recipe, setRecipe] = useState({});
 
-	const [loading, setLoading] = useState(false)
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		const getRecipeById = async () => {
-			setLoading(true)
-			const recipeRequest = await axios.get(
-				`http://localhost:3001/recipes/${id}`
-			)
-			setRecipe(recipeRequest.data)
+			setLoading(true);
+			const recipeRequest = await axios.get(`http://localhost:3001/recipes/${id}`);
+			setRecipe(recipeRequest.data);
 
-			setLoading(false)
-		}
-		getRecipeById()
-	}, [id])
+			setLoading(false);
+		};
+		getRecipeById();
+	}, [id]);
 
 	const getSummary = () => {
 		if (recipe.summary) {
-			return recipe.summary.replace(/<[^>]+>/g, '')
+			return recipe.summary.replace(/<[^>]+>/g, "");
 		}
-	}
+	};
 
 	return (
 		<div>
 			<Header />
 
 			{loading ? (
-				<span className={styles.loading}>Loading...</span>
+				<div>
+					<span className={styles.loading}></span>
+				</div>
 			) : (
 				<div className={styles.detailContainer}>
 					<h1>{recipe.title}</h1>
@@ -51,7 +51,7 @@ function RecipeDetail() {
 							<ul>
 								{recipe.diets &&
 									recipe.diets.map((diet) => {
-										return <li key={diet.id}>{diet}</li>
+										return <li key={diet.id}>{diet}</li>;
 									})}
 							</ul>
 						</div>
@@ -69,20 +69,17 @@ function RecipeDetail() {
 						<h3>Summary</h3>
 						<p className={styles.detail_summaryContent}>{getSummary()}</p>
 					</div>
-					{recipe.steps && recipe.steps !== 'No steps available' && (
+					{recipe.steps && recipe.steps !== "No steps available" && (
 						<div className={styles.detail_stepContainer}>
 							<h2>Step by Step</h2>
 							<ul>
 								{recipe.steps.map((step, index) => {
 									return (
-										<li
-											className={styles.detail_stepContainer_list}
-											key={index}
-										>
+										<li className={styles.detail_stepContainer_list} key={index}>
 											<span>Step {index + 1}: </span>
 											<span>{step}</span>
 										</li>
-									)
+									);
 								})}
 							</ul>
 						</div>
@@ -94,7 +91,7 @@ function RecipeDetail() {
 				</div>
 			)}
 		</div>
-	)
+	);
 }
 
-export default RecipeDetail
+export default RecipeDetail;

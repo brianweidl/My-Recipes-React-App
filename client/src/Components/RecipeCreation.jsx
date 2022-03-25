@@ -1,140 +1,140 @@
-import React from 'react'
-import { useState } from 'react'
-import Header from './Header'
-import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import axios from 'axios'
-import styles from '../Styles/RecipeCreation.module.css'
-import defaultImage from '../Images/defaultImage.png'
+import React from "react";
+import { useState } from "react";
+import Header from "./Header";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import styles from "../Styles/RecipeCreation.module.css";
+import defaultImage from "../Images/defaultImage.png";
 
 function RecipeCreation() {
-	const diets = useSelector((state) => state.diets)
-	const [selectedDiets, setSelectedDiets] = useState([])
-	const [steps, setSteps] = useState([{ stepInput: '', number: 0 }])
+	const diets = useSelector((state) => state.diets);
+	const [selectedDiets, setSelectedDiets] = useState([]);
+	const [steps, setSteps] = useState([{ stepInput: "", number: 0 }]);
 	const [input, setInput] = useState({
-		title: '',
-		summary: '',
-		healthScore: '',
-		score: '',
-		image: '',
-	})
+		title: "",
+		summary: "",
+		healthScore: "",
+		score: "",
+		image: "",
+	});
 
-	const [errors, setErrors] = useState({})
+	const [errors, setErrors] = useState({});
 	const handleChange = (e) => {
-		setInput({ ...input, [e.name]: e.value })
-		setErrors({})
-	}
+		setInput({ ...input, [e.name]: e.value });
+		setErrors({});
+	};
 
 	const handleStepInputChange = (e, number) => {
 		setSteps(
 			steps.map((step) => {
 				if (step.number === number) {
-					step.stepInput = e.value
+					step.stepInput = e.value;
 				}
-				return step
+				return step;
 			})
-		)
-	}
+		);
+	};
 
 	const handleSelect = (e) => {
-		if (e.value === '') return
+		if (e.value === "") return;
 		if (!selectedDiets.includes(e.value.toLowerCase())) {
-			setSelectedDiets([...selectedDiets, e.value.toLowerCase()])
+			setSelectedDiets([...selectedDiets, e.value.toLowerCase()]);
 		} else {
-			alert('Diet already selected')
+			alert("Diet already selected");
 		}
-		let selectDiet = document.getElementById('select')
-		selectDiet.value = ''
-		return
-	}
+		let selectDiet = document.getElementById("select");
+		selectDiet.value = "";
+		return;
+	};
 
 	const removeDiet = (e, diet) => {
-		e.preventDefault()
-		setSelectedDiets(selectedDiets.filter((diets) => diets !== diet))
-		let selectDiet = document.getElementById('select')
-		selectDiet.value = ''
-	}
+		e.preventDefault();
+		setSelectedDiets(selectedDiets.filter((diets) => diets !== diet));
+		let selectDiet = document.getElementById("select");
+		selectDiet.value = "";
+	};
 
 	const addStep = (e) => {
-		e.preventDefault()
-		if (steps.length > 7) return
+		e.preventDefault();
+		if (steps.length > 7) return;
 		setSteps([
 			...steps,
-			{ stepInput: '', number: steps[steps.length - 1].number + 1 },
-		])
-	}
+			{ stepInput: "", number: steps[steps.length - 1].number + 1 },
+		]);
+	};
 
 	const resetSteps = (e) => {
-		e.preventDefault()
-		setSteps([{ stepInput: '', number: 0 }])
-	}
+		e.preventDefault();
+		setSteps([{ stepInput: "", number: 0 }]);
+	};
 
 	const formatSteps = () => {
 		let formattedSteps = steps.reduce((string, step) => {
-			return string + '|' + step.stepInput
-		}, '')
-		return formattedSteps
-	}
+			return string + "|" + step.stepInput;
+		}, "");
+		return formattedSteps;
+	};
 
 	const validations = {
 		title: {
 			isValid: (title) => {
-				return title.length > 5 && title.length < 50
+				return title.length > 5 && title.length < 50;
 			},
-			errorMessage: 'Title must contain between 5 and 50 characters',
+			errorMessage: "Title must contain between 5 and 50 characters",
 		},
 		summary: {
 			isValid: (summary) => {
-				return summary.length > 0
+				return summary.length > 0;
 			},
-			errorMessage: 'Summary cannot be empty',
+			errorMessage: "Summary cannot be empty",
 		},
 		healthScore: {
 			isValid: (healthScore) => {
-				healthScore = parseInt(healthScore)
+				healthScore = parseInt(healthScore);
 
-				return healthScore > 1 && healthScore <= 100
+				return healthScore > 1 && healthScore <= 100;
 			},
-			errorMessage: 'Health Score must be between 1 and 100',
+			errorMessage: "Health Score must be between 1 and 100",
 		},
 		score: {
 			isValid: (score) => {
-				score = parseInt(score)
-				return score > 1 && score <= 100
+				score = parseInt(score);
+				return score > 1 && score <= 100;
 			},
-			errorMessage: 'Score must be between 1 and 100',
+			errorMessage: "Score must be between 1 and 100",
 		},
-	}
+	};
 
 	const handleSubmit = async (e) => {
-		e.preventDefault()
+		e.preventDefault();
 
-		const newErrors = {}
-		let validSubmit = true
+		const newErrors = {};
+		let validSubmit = true;
 
 		for (let key in validations) {
-			let foundError = validations[key].isValid(input[key])
+			let foundError = validations[key].isValid(input[key]);
 
 			if (!foundError) {
-				validSubmit = false
+				validSubmit = false;
 
-				newErrors[key] = validations[key].errorMessage
+				newErrors[key] = validations[key].errorMessage;
 			}
 		}
-		const validSteps = steps[0].stepInput.length > 0
+		const validSteps = steps[0].stepInput.length > 0;
 		if (!validSteps) {
-			validSubmit = false
-			newErrors.steps = 'There has to be at least one step'
+			validSubmit = false;
+			newErrors.steps = "There has to be at least one step";
 		}
-		const validDiets = selectedDiets.length > 0
+		const validDiets = selectedDiets.length > 0;
 		if (!validDiets) {
-			validSubmit = false
-			newErrors.diets = 'Choose at least one diet'
+			validSubmit = false;
+			newErrors.diets = "Choose at least one diet";
 		}
 
 		if (!validSubmit) {
-			setErrors(newErrors)
-			return
+			setErrors(newErrors);
+			return;
 		} else {
 			let formatSend = {
 				title: input.title,
@@ -144,14 +144,14 @@ function RecipeCreation() {
 				image: input.image,
 				diets: selectedDiets,
 				steps: formatSteps(),
-			}
+			};
 			if (!formatSend.image) {
-				formatSend.image = defaultImage
+				formatSend.image = defaultImage;
 			}
-			await axios.post('http://localhost:3001/recipe', formatSend)
-			alert('Recipe created!')
+			await axios.post("http://localhost:3001/recipe", formatSend);
+			alert("Recipe created!");
 		}
-	}
+	};
 	return (
 		<>
 			<Header />
@@ -262,12 +262,12 @@ function RecipeCreation() {
 										className={styles.stepTextInput}
 										type="text"
 										onChange={(e) => {
-											handleStepInputChange(e.target, step.number)
+											handleStepInputChange(e.target, step.number);
 										}}
 										value={step.stepInput}
 									></input>
 								</div>
-							)
+							);
 						})}
 						{errors && errors.steps && (
 							<p className={styles.errorMessage}>{errors.steps}</p>
@@ -276,10 +276,7 @@ function RecipeCreation() {
 						<button className={styles.stepButton} onClick={(e) => addStep(e)}>
 							Add Step
 						</button>
-						<button
-							className={styles.stepButton}
-							onClick={(e) => resetSteps(e)}
-						>
+						<button className={styles.stepButton} onClick={(e) => resetSteps(e)}>
 							Reset steps
 						</button>
 					</div>
@@ -321,7 +318,7 @@ function RecipeCreation() {
 				</button>
 			</form>
 		</>
-	)
+	);
 }
 
-export default RecipeCreation
+export default RecipeCreation;

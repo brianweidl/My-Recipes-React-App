@@ -7,7 +7,24 @@
 	padding: 0 !important;
 }
 .loading {
-	margin: 2em;
+	position: absolute;
+	border: 4px solid rgba(0, 0, 0, 0.1);
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	border-left-color: #fcbd37;
+
+	animation: spin 1s ease infinite;
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
 }
 
 .content {
@@ -16,10 +33,10 @@
 	grid-template-rows: 5% 30% 30% 30% 5%; */
 	height: 100%;
 	grid-template-areas:
-		'navbar navbar navbar navbar'
-		'filter recipes recipes recipes'
-		'filter recipes recipes recipes'
-		'filter recipes recipes recipes';
+		"navbar navbar navbar navbar"
+		"filter recipes recipes recipes"
+		"filter recipes recipes recipes"
+		"filter recipes recipes recipes";
 }
 
 .navbar {
@@ -55,7 +72,7 @@
 }
 
 .filters_header h1 {
-	font-family: 'Poppins', sans-serif;
+	font-family: "Poppins", sans-serif;
 }
 .filters_header button {
 	border: none;
@@ -171,9 +188,9 @@
 @media (max-width: 650px) {
 	.content {
 		grid-template-areas:
-			'navbar'
-			'filter'
-			'recipes';
+			"navbar"
+			"filter"
+			"recipes";
 		min-width: 100%;
 	}
 	.navbar {

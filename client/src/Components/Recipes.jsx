@@ -1,18 +1,18 @@
-import React from 'react'
+import React from "react";
 
-import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import styles from '../Styles/Recipes.module.css'
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import styles from "../Styles/Recipes.module.css";
 
 function Recipes({ recipes }) {
-	const totalRecipes = useSelector((state) => state.filteredRecipes)
+	const totalRecipes = useSelector((state) => state.filteredRecipes);
 
 	const getDietsForCard = (diets) => {
-		let dietsForCard = []
+		let dietsForCard = [];
 		for (let i = 0; i < 3; i++) {
-			dietsForCard.push(diets[i])
+			dietsForCard.push(diets[i]);
 		}
-		dietsForCard.push(`and ${diets.length - 3} more`)
+		dietsForCard.push(`and ${diets.length - 3} more`);
 		return (
 			<ul className={styles.recipeCard_dietsContainer}>
 				{dietsForCard.map((diet, index) => {
@@ -20,15 +20,15 @@ function Recipes({ recipes }) {
 						<li className={styles.dietsContainer_dietElement} key={index}>
 							{diet}
 						</li>
-					)
+					);
 				})}
 			</ul>
-		)
-	}
+		);
+	};
 	return (
 		<>
 			<div className={styles.resultsSpan}>
-				Results {totalRecipes.length}{' '}
+				Results {totalRecipes.length}{" "}
 				{totalRecipes.length <= 1 ? (
 					<span>Recipe found</span>
 				) : (
@@ -52,13 +52,10 @@ function Recipes({ recipes }) {
 								<ul className={styles.recipeCard_dietsContainer}>
 									{recipe.diets.map((diet, index) => {
 										return (
-											<li
-												key={index}
-												className={styles.dietsContainer_dietElement}
-											>
-												{diet}{' '}
+											<li key={index} className={styles.dietsContainer_dietElement}>
+												{diet}{" "}
 											</li>
-										)
+										);
 									})}
 								</ul>
 							) : (
@@ -83,7 +80,7 @@ function Recipes({ recipes }) {
 				)}
 			</div>
 		</>
-	)
+	);
 }
 
-export default Recipes
+export default Recipes;

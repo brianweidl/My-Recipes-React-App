@@ -1,12 +1,25 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import styles from '../Styles/Home.module.css'
-import homeVideo from '../Images/home-video.mp4'
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import styles from "../Styles/Home.module.css";
+import homeVideo from "../Images/home-video.mp4";
 
 function Home() {
+	useEffect(() => {
+		document.body.style.overflow = "hidden";
+		return () => {
+			document.body.style.overflow = "visible";
+		};
+	}, []);
 	return (
 		<div className={styles.homeContainer}>
-			<video width="100%" loop autoPlay muted className={styles.video}>
+			<video
+				width="100%"
+				height="100%"
+				loop
+				autoPlay
+				muted
+				className={styles.video}
+			>
 				<source src={homeVideo} type="video/mp4" />
 			</video>
 
@@ -20,7 +33,7 @@ function Home() {
 				</Link>
 			</div>
 		</div>
-	)
+	);
 }
 
-export default Home
+export default Home;
