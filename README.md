@@ -3,7 +3,7 @@
 
 <img src="https://github.com/brianweidl/My-Recipes-React-App/blob/main/client/src/Images/recipes-icon.png?raw=true">
 
-My Recipes is a Fully-Responsive React application that interacts with the [Spoonacular API](https://spoonacular.com/food-api) that has +5000 recipes.It also works with PostgreSQL and sequelize ORM to save the user's recipes.
+My Recipes is a Fully-Responsive React application that interacts with the [Spoonacular API](https://spoonacular.com/food-api) that has +5000 recipes. It also works with PostgreSQL and sequelize ORM to save the user's recipes.
 
 <img src="https://github.com/brianweidl/My-Recipes-React-App/blob/main/client/src/Images/home.png?raw=true"/>
 
