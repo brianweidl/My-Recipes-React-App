@@ -24,8 +24,6 @@ function Filters() {
 	const recipesShown = 9;
 	const { diets, filteredRecipes } = useSelector((state) => state);
 
-	console.log(filteredRecipes);
-
 	useEffect(() => {
 		const getAllDiets = async () => {
 			setLoading(true);
@@ -200,22 +198,3 @@ function Filters() {
 }
 
 export default Filters;
-
-/* useEffect(() =>{
-		axios.get('http://localhost:3001/types').then((res) => getDiets(res.data) )
-	}) */
-/* function mapStateToProps(state) {
-	return {
-		diets: state.diets,
-		filteredRecipes:state.filteredRecipes
-	}
-}
-function mapDispatchToProps(dispatch) {
-	return {
-		filterBySource: (source) => dispatch(filterBySource(source)),
-		getDiets:(diets) => dispatch(getDiets(diets))
-		...
-		
-	}
-} */
-//export default connect(mapStateToProps, mapDispatchToProps)(Filters)
