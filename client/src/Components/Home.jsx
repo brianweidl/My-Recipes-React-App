@@ -5,9 +5,9 @@ import homeVideo from "../Images/home-video.mp4";
 
 function Home() {
 	useEffect(() => {
-		document.body.style.overflow = "hidden";
+		document.body.style.overflowY = "hidden";
 		return () => {
-			document.body.style.overflow = "visible";
+			document.body.style.overflowY = "visible";
 		};
 	}, []);
 	return (

@@ -290,8 +290,8 @@ function RecipeCreation() {
 							id="select"
 						>
 							<option></option>
-							{diets.map((diet) => (
-								<option>{diet.name.toUpperCase()}</option>
+							{diets.map((diet, index) => (
+								<option key={index}>{diet.name.toUpperCase()}</option>
 							))}
 						</select>
 						{selectedDiets.map((diet) => (
