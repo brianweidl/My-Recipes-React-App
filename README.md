@@ -3,6 +3,14 @@
 
 <img src="https://github.com/brianweidl/My-Recipes-React-App/blob/main/client/src/Images/recipes-icon.png?raw=true">
 
+### Table of content <br>
+- **[Key features](#key-features)**<br>
+- **[Desktop Views](#desktop-views)**<br>
+- **[Mobile Views ](#mobile-views)**<br>
+- **[How to use](#how-to-use)**<br>
+<br>
+
+
 My Recipes is a Fully-Responsive React application that interacts with the [Spoonacular API](https://spoonacular.com/food-api) that has +5000 recipes. It also works with PostgreSQL and sequelize ORM to save the user's recipes.
 
 <img src="./client/src/Images/myRecipesHome.gif"/>
@@ -21,6 +29,8 @@ My Recipes is a Fully-Responsive React application that interacts with the [Spoo
 
 - Integration testing with Jest and Mocha
 
+<br>
+
 ## Desktop Views
 
 
@@ -34,6 +44,7 @@ My Recipes is a Fully-Responsive React application that interacts with the [Spoo
 <img width="750px" src="./client/src/Images/form.png"/>
  </div>
  
+<br>
  
 ## Mobile Views
 
@@ -46,6 +57,8 @@ My Recipes is a Fully-Responsive React application that interacts with the [Spoo
 <img height="500px" src="./client/src/Images/mv-form.png"/>
  <img height="500px" src="./client/src/Images/mv-form2.png"/>
  </div>
+ 
+ <br>
  
 ## How to use
 
