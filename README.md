@@ -19,6 +19,8 @@ My Recipes is a Fully-Responsive React application that interacts with the [Spoo
 
 - Controlled form for creating your own recipes
 
+- Integration testing with Jest and Mocha
+
 ## How to use
 
 In the api folder, you will find an .envsample like this 
