@@ -9,13 +9,13 @@ My Recipes is a Fully-Responsive React application that interacts with the [Spoo
 
  ## Key Features
 
-* Single Page Application
+- Single Page Application
 
 - Filter through the API's recipes or the database recipes
 
-* SearchBar
+- SearchBar
 
-* Pagination
+- Pagination
 
 - Controlled form for creating your own recipes
 
